@@ -1,0 +1,169 @@
+package source_code;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+
+public class MySQL extends PersHand {
+
+	String DriverClass="com.mysql.cj.jdbc.Driver";
+	String Path_DB="jdbc:mysql://localhost:3306/SRMS";
+	String USERNAME_DB="root";
+	String PASSWORD_DB="usmanmalik740";
+	
+	
+	public boolean addSuperAdmin(String cnic, String name, int age, String email, String address, long phoneNumber, String username, String password)
+	{
+		
+		try {
+			
+				Class.forName(DriverClass);
+				Connection con=DriverManager.getConnection(Path_DB, USERNAME_DB, PASSWORD_DB);
+				String sql="INSERT INTO superadmin(cnic,Name,Age,Email_Address,Address,PhoneNumber,Username,Password) VALUES(?,?,?,?,?,?,?,?)";
+				PreparedStatement statement=con.prepareStatement(sql);
+				statement.setString(1,cnic);
+				statement.setString(2,name);
+				statement.setInt(3, age);
+				statement.setString(4,email);
+				statement.setString(5,address);
+				statement.setLong(6, phoneNumber);
+				statement.setString(7,username);
+				statement.setString(8,password);
+				
+				int rowsInserted=statement.executeUpdate();
+				if(rowsInserted>0)
+				{
+					System.out.print("SUPER ADMIN Successfully Added to the Database\n");
+					return true;
+				}
+		
+		
+			}
+		
+		catch (ClassNotFoundException | SQLException e) {
+				System.out.print("CANNOT ADD SUPER ADMIN\n\n");
+				// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return false;
+	}
+	
+	
+	
+	public boolean logInSuperAdmin (String username, String password)
+	{
+		
+		try {
+		
+				Class.forName(DriverClass);
+				Connection con=DriverManager.getConnection(Path_DB, USERNAME_DB, PASSWORD_DB);
+				Statement stmt=con.createStatement();
+				ResultSet rs=stmt.executeQuery("select username,password from superAdmin");
+				
+				String userName="";
+				String passWord="";
+				
+				while(rs.next())
+				{
+					userName=rs.getString(1);
+					passWord=rs.getString(2);
+					if(username.equals(userName) && password.equals(passWord))
+					{
+						return true;
+					}
+				}
+				
+				
+				
+				
+		
+			}
+		
+		catch (ClassNotFoundException | SQLException e) {
+			System.out.print("CANNOT ADD SUPER ADMIN\n\n");
+			// TODO Auto-generated catch block
+		e.printStackTrace();
+		}	
+		
+		return false;
+	}
+	
+	
+	
+	public boolean addSystemUser(String cnic,String name,int age, String email, String address, long phoneNumber, String username, String password)
+	{
+		
+		try {
+			
+			Class.forName(DriverClass);
+			Connection con=DriverManager.getConnection(Path_DB, USERNAME_DB, PASSWORD_DB);
+			String sql="INSERT INTO systemUser(cnic,Name,Age,Email_Address,Address,PhoneNumber,Username,Password) VALUES(?,?,?,?,?,?,?,?)";
+			PreparedStatement statement=con.prepareStatement(sql);
+			statement.setString(1,cnic);
+			statement.setString(2,name);
+			statement.setInt(3, age);
+			statement.setString(4,email);
+			statement.setString(5,address);
+			statement.setLong(6, phoneNumber);
+			statement.setString(7,username);
+			statement.setString(8,password);
+			
+			int rowsInserted=statement.executeUpdate();
+			if(rowsInserted>0)
+			{
+				System.out.print("SYSTEM USER Successfully Added to the Database\n");
+				return true;
+			}
+	
+	
+		}
+	
+	catch (ClassNotFoundException | SQLException e) {
+			System.out.print("CANNOT ADD SUPER ADMIN\n\n");
+			// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
+		return false;
+	}
+	
+	
+	
+	public boolean deleteSystemUser(String username)
+	{
+		try {
+			
+			Class.forName(DriverClass);
+			Connection con=DriverManager.getConnection(Path_DB, USERNAME_DB, PASSWORD_DB);
+			Statement stmt=con.createStatement();
+			String query="delete from systemUser where username='"+username+"'";
+			int result=stmt.executeUpdate(query);
+			
+			
+			if(result==0)
+			{
+				System.out.print("Not Record Found against the Username:  "+username+" provided\n\n");
+				return false;
+			}
+			else
+			{
+				System.out.print("Record Found against the Username:  "+username+" and deleted\n\n");
+				return true;
+			}
+			
+				
+			
+		}
+	
+	catch (ClassNotFoundException | SQLException e) {
+		System.out.print("CANNOT ADD SUPER ADMIN\n\n");
+		// TODO Auto-generated catch block
+	e.printStackTrace();
+	}	
+
+		return false;
+	}
+	
+}
