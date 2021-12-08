@@ -139,8 +139,9 @@ public class superAdmin {
 	{
 		//superAdmin SA_USER=new superAdmin(cnic,name,age,email,address,phoneNumber,username,password);
 		//DB CALL TO ADD SUPER ADMIN
-		obj.addSuperAdmin(cnic, name, age, email, address, phoneNumber, username, password);
-		return true;
+		if(obj.addSuperAdmin(cnic, name, age, email, address, phoneNumber, username, password))
+			return true;
+		return false;
 	}
 	
 	public boolean logIn(String username, String password)
@@ -165,6 +166,7 @@ public class superAdmin {
 		{
 			systemUsers_SA.add(obj);
 			systemUsers_SA.get(0).addUser(cnic,name,age,email,address,pNum,username,password);
+			return true;
 			
 		}
 		
@@ -177,11 +179,12 @@ public class superAdmin {
 			{
 				systemUsers_SA.get(i).addUser(cnic,name,age,email,address,pNum,username,password);
 				systemUsers_SA.add(obj);
+				return true;
 				
 			}
 		}
 		
-		return true;
+		return false;
 	}
 	
 	public boolean deleteSystemUser(String username)

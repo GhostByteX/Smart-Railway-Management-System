@@ -28,8 +28,33 @@ public class UI_Call_Handler {
 	@FXML
 	private TextField SApassword;
 	
+	@FXML
+	private TextField sucnic;
+	
+	@FXML
+	private TextField suname;
+	
+	@FXML
+	private TextField suage;
+	
+	@FXML
+	private TextField suemail;
+	
+	@FXML
+	private TextField suaddress;
+	
+	@FXML
+	private TextField suphone;
+	
+	@FXML
+	private TextField suusername;
+	
+	@FXML
+	private TextField supassword;
 	
 	
+	@FXML
+	private TextField sudelusername;
 	
 	
 	
@@ -227,4 +252,150 @@ public class UI_Call_Handler {
 	{
 		System.exit(0);
 	}
+	
+	
+	@FXML
+	public void superAdminAddedSystemUser(ActionEvent Event)
+	{
+		
+		String cnic,name,email,address,username,password,ageString,pNumString;
+		int age=0;
+		long pNum;
+		
+		cnic=sucnic.getText();
+		name=suname.getText();
+		ageString=suage.getText();
+		age=Integer.parseInt(ageString);
+		email=suemail.getText();
+		address=suaddress.getText();
+		pNumString=suphone.getText();
+		pNum=Long.parseLong(pNumString);
+		username=suusername.getText();
+		password=supassword.getText();
+		
+		
+		
+		try
+		{
+			
+			if(alphaobj.superAdminAddSystemUser(cnic, name, age, email, address, pNum, username, password))
+			{
+				FXMLLoader fxmlLoader=new FXMLLoader(getClass().getResource("superAdminSystemUserAdded_UI.fxml"));
+				Parent root_one = (Parent) fxmlLoader.load();
+				Stage stage = new Stage();
+				stage.setTitle("System User Added");
+				stage.setScene(new Scene(root_one));
+				stage.show();
+			}
+			
+			else
+			{
+				FXMLLoader fxmlLoader=new FXMLLoader(getClass().getResource("superAdminSystemUserNotAdded_UI.fxml"));
+				Parent root_one = (Parent) fxmlLoader.load();
+				Stage stage = new Stage();
+				stage.setTitle("System User Not Added");
+				stage.setScene(new Scene(root_one));
+				stage.show();
+			}
+			
+			
+			
+	
+		}catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+	}
+	
+	@FXML
+	public void superAdminDeletedSystemUser(ActionEvent Event)
+	{
+		
+		String username;
+		username=sudelusername.getText();
+		
+		
+		try
+		{
+			
+			if(alphaobj.superAdminDeleteSystemUser(username))
+			{
+				FXMLLoader fxmlLoader=new FXMLLoader(getClass().getResource("superAdminSystemUserDeleted_UI.fxml"));
+				Parent root_one = (Parent) fxmlLoader.load();
+				Stage stage = new Stage();
+				stage.setTitle("System User Deleted");
+				stage.setScene(new Scene(root_one));
+				stage.show();
+			}
+			
+			else
+			{
+				FXMLLoader fxmlLoader=new FXMLLoader(getClass().getResource("superAdminSystemUserNotDeleted_UI.fxml"));
+				Parent root_one = (Parent) fxmlLoader.load();
+				Stage stage = new Stage();
+				stage.setTitle("System User Not Deleted");
+				stage.setScene(new Scene(root_one));
+				stage.show();
+			}
+	
+		}catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+	}
+	
+	@FXML
+	public void superAdminCreateAccount(ActionEvent Event)
+	{
+		
+		String cnic,name,email,address,username,password,ageString,pNumString;
+		int age=0;
+		long pNum;
+		
+		cnic=sucnic.getText();
+		name=suname.getText();
+		ageString=suage.getText();
+		age=Integer.parseInt(ageString);
+		email=suemail.getText();
+		address=suaddress.getText();
+		pNumString=suphone.getText();
+		pNum=Long.parseLong(pNumString);
+		username=suusername.getText();
+		password=supassword.getText();
+		
+		
+		
+		try
+		{
+			
+			if(alphaobj.superAdminCreateAccount(cnic, name, age, email, address, pNum, username, password))
+			{
+				FXMLLoader fxmlLoader=new FXMLLoader(getClass().getResource("superAdminCreated_UI.fxml"));
+				Parent root_one = (Parent) fxmlLoader.load();
+				Stage stage = new Stage();
+				stage.setTitle("Super Admin Added");
+				stage.setScene(new Scene(root_one));
+				stage.show();
+			}
+			
+			else
+			{
+				FXMLLoader fxmlLoader=new FXMLLoader(getClass().getResource("superAdminNotCreated_UI.fxml"));
+				Parent root_one = (Parent) fxmlLoader.load();
+				Stage stage = new Stage();
+				stage.setTitle("Super Admin Not Added");
+				stage.setScene(new Scene(root_one));
+				stage.show();
+			}
+			
+			
+			
+	
+		}catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+	}
+	
+	
 }

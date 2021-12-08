@@ -10,6 +10,16 @@ public class alphaSystem {
 	
 	}
 	
+	public boolean superAdminCreateAccount(String cnic,String name, int age, String email,String address,long pNum,String username, String password)
+	{
+		superAdmin obj=new superAdmin();
+		if(obj.createAccount(cnic, name, age, email, address, pNum, username, password))
+			return true;
+		else
+			return false;
+		
+	}
+	
 	public boolean superAdminLogIn(String uname, String pass)
 	{
 		superAdmin obj=new superAdmin();
@@ -26,6 +36,29 @@ public class alphaSystem {
 		
 		
 		
+	}
+	
+	
+	
+	public boolean superAdminAddSystemUser(String cnic, String name, int age, String email, String address, long pNum, String username, String password)
+	{
+		superAdmin obj=new superAdmin();
+		if(obj.addSystemUser(cnic, name, age, email, address, pNum, username, password))
+			return true;
+		else
+			return false;
+		
+		
+	}
+	
+	
+	public boolean superAdminDeleteSystemUser(String username)
+	{
+		superAdmin obj=new superAdmin();
+		if(obj.deleteSystemUser(username))
+			return true;
+		else
+			return false;
 	}
 	
 }

@@ -36,7 +36,7 @@ public class MySQL extends PersHand {
 				int rowsInserted=statement.executeUpdate();
 				if(rowsInserted>0)
 				{
-					System.out.print("SUPER ADMIN Successfully Added to the Database\n");
+					
 					return true;
 				}
 		
@@ -44,7 +44,6 @@ public class MySQL extends PersHand {
 			}
 		
 		catch (ClassNotFoundException | SQLException e) {
-				System.out.print("CANNOT ADD SUPER ADMIN\n\n");
 				// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
@@ -83,7 +82,6 @@ public class MySQL extends PersHand {
 			}
 		
 		catch (ClassNotFoundException | SQLException e) {
-			System.out.print("CANNOT ADD SUPER ADMIN\n\n");
 			// TODO Auto-generated catch block
 		e.printStackTrace();
 		}	
@@ -114,7 +112,6 @@ public class MySQL extends PersHand {
 			int rowsInserted=statement.executeUpdate();
 			if(rowsInserted>0)
 			{
-				System.out.print("SYSTEM USER Successfully Added to the Database\n");
 				return true;
 			}
 	
@@ -122,7 +119,6 @@ public class MySQL extends PersHand {
 		}
 	
 	catch (ClassNotFoundException | SQLException e) {
-			System.out.print("CANNOT ADD SUPER ADMIN\n\n");
 			// TODO Auto-generated catch block
 		e.printStackTrace();
 	}
@@ -144,12 +140,10 @@ public class MySQL extends PersHand {
 			
 			if(result==0)
 			{
-				System.out.print("Not Record Found against the Username:  "+username+" provided\n\n");
-				return false;
+					return false;
 			}
 			else
 			{
-				System.out.print("Record Found against the Username:  "+username+" and deleted\n\n");
 				return true;
 			}
 			
@@ -158,7 +152,6 @@ public class MySQL extends PersHand {
 		}
 	
 	catch (ClassNotFoundException | SQLException e) {
-		System.out.print("CANNOT ADD SUPER ADMIN\n\n");
 		// TODO Auto-generated catch block
 	e.printStackTrace();
 	}	
