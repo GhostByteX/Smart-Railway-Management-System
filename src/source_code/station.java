@@ -5,23 +5,23 @@ public class station {
 	private int id_ST;
 	private String name_ST;
 	private String location_ST;
-	private stationMaster stationMaster;
-	
+	private String stationMasterCNIC;
+	PersHand obj= new MySQL();
 	
 	station()
 	{
 		this.id_ST=0;
 		this.name_ST="";
 		this.location_ST="";
-		this.stationMaster= new stationMaster();
+		this.stationMasterCNIC="";
 	}
 	
-	station(int id, String name, String location,stationMaster SM)
+	station(int id, String name, String location,String SM)
 	{
 		this.id_ST=id;
 		this.name_ST=name;
 		this.location_ST=location;
-		this.stationMaster=SM;
+		this.stationMasterCNIC=SM;
 	}
 	
 	
@@ -64,15 +64,20 @@ public class station {
 	//	FUNCTIONALITY
 	
 	
-	public boolean add(int ID, String name, String location,stationMaster SM)
+	public boolean add(int ID, String name, String location,String SM)
 	{
 		//DB CALL TO ADD A STATION
-		return true;
+		
+		if(obj.addStation(ID, name, location, SM))
+			return true;
+		return false;
 	}
 	
-	public boolean delete(int ID, String name, String location, stationMaster SM)
+	public boolean delete(int ID)
 	{
 		//DB CALL TO DELETE A STATION
-		return true;
+		if(obj.deleteStation(ID))
+			return true;
+		return false;
 	}
 }

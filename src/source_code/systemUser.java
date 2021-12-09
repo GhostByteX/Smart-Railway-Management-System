@@ -167,8 +167,9 @@ public class systemUser {
 	
 	public boolean logIn(String username, String password)
 	{
-		// DB CALL TO AUTENTHICATE USER
-		return true;
+		if(obj.logInSystemUser(username, password))
+			return true;
+		return false;
 	}
 	
 	public boolean logOut()
@@ -177,41 +178,17 @@ public class systemUser {
 		return true;
 	}
 	
-	public boolean addStation(int ID, String name,String location, stationMaster SM)
-	{
-		station obj = new station(ID,name,location,SM);
-		for(int i=0;i<stationsList.size();i++)
-		{
-			if(stationsList.get(i).getID()==ID)
-			{
-				stationsList.add(obj);
-				stationsList.get(i).add(ID, name, location,SM);
-				return true;
-			}
-		}
-		return false;
-		
-	}
-	
-	
-	public boolean deleteStation(int ID, String name, String location, stationMaster SM)
-	{
-		for(int i=0;i<stationsList.size();i++)
-		{
-			if(stationsList.get(i).getID()==ID)
-			{
-				stationsList.remove(i);
-				stationsList.get(i).delete(ID, name, location,SM);
-				return true;
-			}
-		}
-		return false;
-	}
 	
 	
 	public boolean addStationMaster(String CNIC, String name, int age, String email, String address, long pNum, String username, String password)
 	{
 		stationMaster obj= new stationMaster(CNIC,name,age,email,address,pNum,username,password);
+		
+		if(stationMastersList.size()<1)
+		{
+			stationMastersList.add(obj);
+			obj.add(CNIC, name, age, email, address, pNum, username, password);
+		}
 		for(int i=0;i<stationMastersList.size();i++)
 		{
 			if(stationMastersList.get(i).getCNIC().equals(CNIC))
@@ -227,19 +204,47 @@ public class systemUser {
 	
 	public boolean deleteStationMaster(String username)
 	{
-		for(int i=0;i<stationMastersList.size();i++)
+		stationMaster obj=new stationMaster();
+		
+		if(obj.delete(username))
+			return true;
+		
+		return false;
+	}
+	
+	public boolean addStation(int ID,String name, String loc, String ssmcnic)
+	{
+		station obj = new station(ID,name,loc,ssmcnic);
+		
+		if(stationsList.size()<1)
 		{
-			if(stationMastersList.get(i).getUsername().equals(username))
+			stationsList.add(obj);
+			if(obj.add(ID, name, loc, ssmcnic))
+				return true;
+		
+		}
+		for(int i=0;i<stationsList.size();i++)
+		{
+			if(stationsList.get(i).getID()==ID)
 			{
-				stationMastersList.remove(i);
-				stationMastersList.get(i).delete(username);
+				stationsList.add(obj);
+				stationsList.get(i).add(ID, name, loc, ssmcnic);
 				return true;
 			}
 		}
 		
-		return true;
+		return false;
 	}
 	
 	
+	public boolean deleteStation(int ID)
+	{
+		station obj=new station();
+		
+		if(obj.delete(ID))
+			return true;
+		
+		return false;
+	}
 	
 }

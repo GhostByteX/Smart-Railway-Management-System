@@ -10,7 +10,7 @@
    <children>
       <Pane prefHeight="800.0" prefWidth="800.0" style="-fx-background-color: indigo;">
          <children>
-            <Button layoutX="127.0" layoutY="342.0" mnemonicParsing="false" style="-fx-background-color: maroon;" text="SYSTEM USER CANNOT BE ADDED" textAlignment="CENTER" textFill="WHITE" wrapText="true">
+            <Button layoutX="127.0" layoutY="342.0" mnemonicParsing="false" style="-fx-background-color: maroon;" text="CANNOT BE ADDED" textAlignment="CENTER" textFill="WHITE" wrapText="true">
                <font>
                   <Font name="Century Gothic Bold Italic" size="30.0" />
                </font>

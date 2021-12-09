@@ -57,6 +57,18 @@ public class UI_Call_Handler {
 	private TextField sudelusername;
 	
 	
+	@FXML
+	private TextField sID;
+	
+	@FXML
+	private TextField sname;
+	
+	@FXML
+	private TextField sloc;
+	
+	@FXML
+	private TextField ssmcnic;
+	
 	
 	@FXML
 	public void superAdminHomePage(ActionEvent Event)
@@ -333,7 +345,7 @@ public class UI_Call_Handler {
 				FXMLLoader fxmlLoader=new FXMLLoader(getClass().getResource("superAdminSystemUserNotDeleted_UI.fxml"));
 				Parent root_one = (Parent) fxmlLoader.load();
 				Stage stage = new Stage();
-				stage.setTitle("System User Not Deleted");
+				stage.setTitle("System User Not Deletedffff");
 				stage.setScene(new Scene(root_one));
 				stage.show();
 			}
@@ -397,5 +409,310 @@ public class UI_Call_Handler {
 		}
 	}
 	
+	
+	@FXML
+	public void systemUserLogIn(ActionEvent Event)
+	{
+		
+		try
+		{
+			String username=SAusername.getText();
+			String password=SApassword.getText();
+			
+			if(alphaobj.systmerUserLogIn(username,password))
+			{
+				FXMLLoader fxmlLoader=new FXMLLoader(getClass().getResource("systemUserMenu_UI.fxml"));
+				Parent root_one = (Parent) fxmlLoader.load();
+				Stage stage = new Stage();
+				stage.setTitle("Logged In");
+				stage.setScene(new Scene(root_one));
+				stage.show();
+			}
+			
+			else
+			{
+				FXMLLoader fxmlLoader=new FXMLLoader(getClass().getResource("unsuccessfullogin_UI.fxml"));
+				Parent root_one = (Parent) fxmlLoader.load();
+				Stage stage = new Stage();
+				stage.setTitle("Cannot Log In");
+				stage.setScene(new Scene(root_one));
+				stage.show();
+			}
+			
+			
+			
+			
+			
+		}catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+		
+		
+	}
+	
+	@FXML
+	public void systemUserAddStationMaster(ActionEvent Event)
+	{
+		try
+		{
+			FXMLLoader fxmlLoader=new FXMLLoader(getClass().getResource("systemUserAddStationMaster_UI.fxml"));
+			Parent root_one = (Parent) fxmlLoader.load();
+			Stage stage = new Stage();
+			stage.setTitle("CREATE A STATION MASTER ACCOUNT");
+			stage.setScene(new Scene(root_one));
+			stage.show();
+			//
+	
+		}catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+	}
+	
+	@FXML
+	public void systemUserDelStationMaster(ActionEvent Event)
+	{
+		try
+		{
+			FXMLLoader fxmlLoader=new FXMLLoader(getClass().getResource("systemUserDelStationMaster_UI.fxml"));
+			Parent root_one = (Parent) fxmlLoader.load();
+			Stage stage = new Stage();
+			stage.setTitle("DELETE A STATION MASTER");
+			stage.setScene(new Scene(root_one));
+			stage.show();
+			
+	
+		}catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+	}
+	
+	
+	@FXML
+	public void systemUserAddStation(ActionEvent Event)
+	{
+		try
+		{
+			FXMLLoader fxmlLoader=new FXMLLoader(getClass().getResource("systemUserAddStation_UI.fxml"));
+			Parent root_one = (Parent) fxmlLoader.load();
+			Stage stage = new Stage();
+			stage.setTitle("ADD A STATION");
+			stage.setScene(new Scene(root_one));
+			stage.show();
+			//
+	
+		}catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+	}
+	
+	@FXML
+	public void systemUserDelStation(ActionEvent Event)
+	{
+		try
+		{
+			FXMLLoader fxmlLoader=new FXMLLoader(getClass().getResource("systemUserDelStation_UI.fxml"));
+			Parent root_one = (Parent) fxmlLoader.load();
+			Stage stage = new Stage();
+			stage.setTitle("DELETE A STATION");
+			stage.setScene(new Scene(root_one));
+			stage.show();
+			
+	
+		}catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+	}
+	
+	
+	
+	@FXML
+	public void systemUserLogOut(ActionEvent Event)
+	{
+		System.exit(0);
+	}
+	
+	
+	@FXML
+	public void systemUserAddedStationMaster(ActionEvent Event)
+	{
+		
+		String cnic,name,email,address,username,password,ageString,pNumString;
+		int age=0;
+		long pNum;
+		
+		cnic=sucnic.getText();
+		name=suname.getText();
+		ageString=suage.getText();
+		age=Integer.parseInt(ageString);
+		email=suemail.getText();
+		address=suaddress.getText();
+		pNumString=suphone.getText();
+		pNum=Long.parseLong(pNumString);
+		username=suusername.getText();
+		password=supassword.getText();
+		
+		
+		
+		try
+		{
+			
+			if(alphaobj.systemUserAddStationMaster(cnic, name, age, email, address, pNum, username, password))
+			{
+				FXMLLoader fxmlLoader=new FXMLLoader(getClass().getResource("superAdminSystemUserAdded_UI.fxml"));
+				Parent root_one = (Parent) fxmlLoader.load();
+				Stage stage = new Stage();
+				stage.setTitle("System User Added");
+				stage.setScene(new Scene(root_one));
+				stage.show();
+			}
+			
+			else
+			{
+				FXMLLoader fxmlLoader=new FXMLLoader(getClass().getResource("superAdminSystemUserNotAdded_UI.fxml"));
+				Parent root_one = (Parent) fxmlLoader.load();
+				Stage stage = new Stage();
+				stage.setTitle("System User Not Added");
+				stage.setScene(new Scene(root_one));
+				stage.show();
+			}
+			
+			
+			
+	
+		}catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+	}
+	
+	@FXML
+	public void systemUserDeletedStationMaster(ActionEvent Event)
+	{
+		
+		String username;
+		username=sudelusername.getText();
+		
+		
+		try
+		{
+			
+			if(alphaobj.systemUserDeleteStationMaster(username))
+			{
+				FXMLLoader fxmlLoader=new FXMLLoader(getClass().getResource("superAdminSystemUserDeleted_UI.fxml"));
+				Parent root_one = (Parent) fxmlLoader.load();
+				Stage stage = new Stage();
+				stage.setTitle("Station Master Deleted");
+				stage.setScene(new Scene(root_one));
+				stage.show();
+			}
+			
+			else
+			{
+				FXMLLoader fxmlLoader=new FXMLLoader(getClass().getResource("superAdminSystemUserNotDeleted_UI.fxml"));
+				Parent root_one = (Parent) fxmlLoader.load();
+				Stage stage = new Stage();
+				stage.setTitle("Station Master Not Deleted");
+				stage.setScene(new Scene(root_one));
+				stage.show();
+			}
+	
+		}catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+	}
+	
+	
+	@FXML
+	public void systemUserAddedStation(ActionEvent Event)
+	{
+		String sId,name,loc,cnic;
+		int sid=0;
+		
+		sId=sID.getText();
+		sid=Integer.parseInt(sId);
+		name=sname.getText();
+		loc=sloc.getText();
+		cnic=ssmcnic.getText();
+		
+		
+		try
+		{
+			
+			if(alphaobj.systemUserAddStation(sid, name, loc, cnic))
+			{
+				FXMLLoader fxmlLoader=new FXMLLoader(getClass().getResource("superAdminSystemUserAdded_UI.fxml"));
+				Parent root_one = (Parent) fxmlLoader.load();
+				Stage stage = new Stage();
+				stage.setTitle("Station Added");
+				stage.setScene(new Scene(root_one));
+				stage.show();
+			}
+			
+			else
+			{
+				FXMLLoader fxmlLoader=new FXMLLoader(getClass().getResource("superAdminSystemUserNotAdded_UI.fxml"));
+				Parent root_one = (Parent) fxmlLoader.load();
+				Stage stage = new Stage();
+				stage.setTitle("Station Not Added");
+				stage.setScene(new Scene(root_one));
+				stage.show();
+			}
+			
+			
+			
+	
+		}catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+	}
+	
+	@FXML
+	public void systemUserDeletedStation(ActionEvent Event)
+	{
+		String sId;
+		int sid=0;
+		
+		sId=sID.getText();
+		sid=Integer.parseInt(sId);
+		
+		
+		try
+		{
+			
+			if(alphaobj.systemUserDelStation(sid))
+			{
+				FXMLLoader fxmlLoader=new FXMLLoader(getClass().getResource("superAdminSystemUserDeleted_UI.fxml"));
+				Parent root_one = (Parent) fxmlLoader.load();
+				Stage stage = new Stage();
+				stage.setTitle("Station Added");
+				stage.setScene(new Scene(root_one));
+				stage.show();
+			}
+			
+			else
+			{
+				FXMLLoader fxmlLoader=new FXMLLoader(getClass().getResource("superAdminSystemUserNotDeleted_UI.fxml"));
+				Parent root_one = (Parent) fxmlLoader.load();
+				Stage stage = new Stage();
+				stage.setTitle("Station Not Added");
+				stage.setScene(new Scene(root_one));
+				stage.show();
+			}
+			
+			
+			
+	
+		}catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+	}
 	
 }

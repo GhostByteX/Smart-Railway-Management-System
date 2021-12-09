@@ -14,7 +14,7 @@ public class stationMaster {
 	private String username_SM;
 	private String password_SM;
 	private LinkedList<timetable> trainSchedule;
-	
+	PersHand obj = new MySQL();
 	stationMaster()
 	{
 		this.CNIC_SM="";
@@ -150,13 +150,17 @@ public class stationMaster {
 	public boolean add(String cnic, String name, int age, String email, String address, long pNum, String username, String password)
 	{
 		//DB CALL TO ADD
-		return true;
+		if(obj.addStationMaster(cnic, name, age, email, address, pNum, username, password))
+			return true;
+		return false;
 	}
 	
 	public boolean delete(String username)
 	{
 		//DB CALL TO DELETE
-		return true;
+		if(obj.deleteStationMaster(username))
+			return true;
+		return false;
 	}
 	
 	public boolean addTimeTable(int ID, Date dateOfTimeTable)

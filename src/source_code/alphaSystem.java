@@ -61,4 +61,62 @@ public class alphaSystem {
 			return false;
 	}
 	
+	
+	public boolean systmerUserLogIn(String uname, String pass)
+	{
+		systemUser obj=new systemUser();
+		//obj.createAccount("61101-0175757-5","Usman Malik",21,"usmanmalik740@gmail.com","H#489 ST#34 I-8/2 Islamabad",19228058L,"usmanmalik740","Pakistan123");
+		if(obj.logIn(uname,pass))
+			return true;
+		else
+			return false;
+		
+		
+		
+	}
+	
+	
+	public boolean systemUserAddStationMaster(String cnic, String name, int age, String email, String address, long pNum, String username, String password)
+	{
+		systemUser obj = new systemUser();
+		if(obj.addStationMaster(cnic, name, age, email, address, pNum, username, password))
+			return true;
+		else
+			return false;
+		
+		
+	}
+	
+	public boolean systemUserDeleteStationMaster(String username)
+	{
+		systemUser obj = new systemUser();
+		if(obj.deleteStationMaster(username))
+			return true;
+		else
+			return false;
+	}
+	
+	
+	public boolean systemUserAddStation(int ID,String name, String loc, String ssmcnic)
+	{
+		systemUser obj = new systemUser();
+		if(obj.addStation(ID, name, loc, ssmcnic))
+			return true;
+		else
+			return false;
+		
+		
+	}
+	
+	public boolean systemUserDelStation(int ID)
+	{
+		systemUser obj = new systemUser();
+		if(obj.deleteStation(ID))
+			return true;
+		else
+			return false;
+		
+		
+	}
+	
 }
