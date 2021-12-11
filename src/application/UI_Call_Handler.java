@@ -134,7 +134,7 @@ public class UI_Call_Handler {
 	{
 		try
 		{
-			FXMLLoader fxmlLoader=new FXMLLoader(getClass().getResource("customers_UI.fxml"));
+			FXMLLoader fxmlLoader=new FXMLLoader(getClass().getResource("customer_LogIn_UI.fxml"));
 			Parent root_one = (Parent) fxmlLoader.load();
 			Stage stage = new Stage();
 			stage.setTitle("CUSTOMERS");
@@ -702,6 +702,164 @@ public class UI_Call_Handler {
 				Parent root_one = (Parent) fxmlLoader.load();
 				Stage stage = new Stage();
 				stage.setTitle("Station Not Added");
+				stage.setScene(new Scene(root_one));
+				stage.show();
+			}
+			
+			
+			
+	
+		}catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+	}
+	
+	
+	@FXML
+	public void stationMasterLogIn(ActionEvent Event)
+	{
+		
+		try
+		{
+			String username=SAusername.getText();
+			String password=SApassword.getText();
+			
+			if(alphaobj.stationMasterLogIn(username, password))
+			{
+				FXMLLoader fxmlLoader=new FXMLLoader(getClass().getResource("stationMasterMenu_UI.fxml"));
+				Parent root_one = (Parent) fxmlLoader.load();
+				Stage stage = new Stage();
+				stage.setTitle("Logged In");
+				stage.setScene(new Scene(root_one));
+				stage.show();
+			}
+			
+			else
+			{
+				FXMLLoader fxmlLoader=new FXMLLoader(getClass().getResource("unsuccessfullogin_UI.fxml"));
+				Parent root_one = (Parent) fxmlLoader.load();
+				Stage stage = new Stage();
+				stage.setTitle("Cannot Log In");
+				stage.setScene(new Scene(root_one));
+				stage.show();
+			}
+			
+			
+			
+			
+			
+		}catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+		
+		
+	}
+	
+	
+	
+	@FXML
+	public void customerLogIn(ActionEvent Event)
+	{
+		
+		try
+		{
+			String username=SAusername.getText();
+			String password=SApassword.getText();
+			
+			if(alphaobj.customersLogIn(username, password))
+			{
+				FXMLLoader fxmlLoader=new FXMLLoader(getClass().getResource("customers_UI.fxml"));
+				Parent root_one = (Parent) fxmlLoader.load();
+				Stage stage = new Stage();
+				stage.setTitle("Logged In");
+				stage.setScene(new Scene(root_one));
+				stage.show();
+			}
+			
+			else
+			{
+				FXMLLoader fxmlLoader=new FXMLLoader(getClass().getResource("unsuccessfullogin_UI.fxml"));
+				Parent root_one = (Parent) fxmlLoader.load();
+				Stage stage = new Stage();
+				stage.setTitle("Cannot Log In");
+				stage.setScene(new Scene(root_one));
+				stage.show();
+			}
+			
+			
+			
+			
+			
+		}catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+		
+		
+	}
+	
+	
+	@FXML
+	public void customersSignUp(ActionEvent Event)
+	{
+		try
+		{
+			FXMLLoader fxmlLoader=new FXMLLoader(getClass().getResource("customerSignUp_UI.fxml"));
+			Parent root_one = (Parent) fxmlLoader.load();
+			Stage stage = new Stage();
+			stage.setTitle("CREATE AN ACCOUNT");
+			stage.setScene(new Scene(root_one));
+			stage.show();
+			
+	
+		}catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+	}
+	
+	@FXML
+	public void customersCreateAccount(ActionEvent Event)
+	{
+		
+		String cnic,name,email,address,username,password,ageString,pNumString;
+		int age=0;
+		long pNum;
+		
+		cnic=sucnic.getText();
+		name=suname.getText();
+		ageString=suage.getText();
+		age=Integer.parseInt(ageString);
+		email=suemail.getText();
+		address=suaddress.getText();
+		pNumString=suphone.getText();
+		pNum=Long.parseLong(pNumString);
+		username=suusername.getText();
+		password=supassword.getText();
+		
+		
+		try
+		{
+			
+			if(alphaobj.addCustomer(cnic, name, age, email, address, pNum, username, password))
+			{
+				
+				FXMLLoader fxmlLoader=new FXMLLoader(getClass().getResource("superAdminCreated_UI.fxml"));
+				Parent root_one = (Parent) fxmlLoader.load();
+				Stage stage = new Stage();
+				stage.setTitle("Customer Added");
+				stage.setScene(new Scene(root_one));
+				stage.show();
+			}
+			
+			else
+			{
+				FXMLLoader fxmlLoader=new FXMLLoader(getClass().getResource("superAdminNotCreated_UI.fxml"));
+				Parent root_one = (Parent) fxmlLoader.load();
+				Stage stage = new Stage();
+				stage.setTitle("Customer Not Added");
 				stage.setScene(new Scene(root_one));
 				stage.show();
 			}

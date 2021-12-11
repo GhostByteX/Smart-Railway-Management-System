@@ -334,4 +334,116 @@ public class MySQL extends PersHand {
 		return false;
 		
 	}
+	
+	
+	public boolean logInStationMaster (String username, String password)
+	{
+		
+		try {
+		
+				Class.forName(DriverClass);
+				Connection con=DriverManager.getConnection(Path_DB, USERNAME_DB, PASSWORD_DB);
+				Statement stmt=con.createStatement();
+				ResultSet rs=stmt.executeQuery("select username,password from stationmaster");
+				
+				String userName="";
+				String passWord="";
+				
+				while(rs.next())
+				{
+					userName=rs.getString(1);
+					passWord=rs.getString(2);
+					if(username.equals(userName) && password.equals(passWord))
+					{
+						return true;
+					}
+				}
+				
+				
+				
+				
+		
+			}
+		
+		catch (ClassNotFoundException | SQLException e) {
+			// TODO Auto-generated catch block
+		e.printStackTrace();
+		}	
+		
+		return false;
+	}
+	
+	public boolean addCustomer(String cnic, String name, int age, String email, String address, long phoneNumber, String username, String password)
+	{
+		
+		try {
+			
+				Class.forName(DriverClass);
+				Connection con=DriverManager.getConnection(Path_DB, USERNAME_DB, PASSWORD_DB);
+				String sql="INSERT INTO customers(cnic,Name,Age,Email_Address,Address,Phone_Number,Username,Password) VALUES(?,?,?,?,?,?,?,?)";
+				PreparedStatement statement=con.prepareStatement(sql);
+				statement.setString(1,cnic);
+				statement.setString(2,name);
+				statement.setInt(3, age);
+				statement.setString(4,email);
+				statement.setString(5,address);
+				statement.setLong(6, phoneNumber);
+				statement.setString(7,username);
+				statement.setString(8,password);
+				
+				int rowsInserted=statement.executeUpdate();
+				if(rowsInserted>0)
+				{
+					
+					return true;
+				}
+		
+		
+			}
+		
+		catch (ClassNotFoundException | SQLException e) {
+				// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return false;
+	}
+	
+	public boolean logInCustomers (String username, String password)
+	{
+		
+		try {
+		
+				Class.forName(DriverClass);
+				Connection con=DriverManager.getConnection(Path_DB, USERNAME_DB, PASSWORD_DB);
+				Statement stmt=con.createStatement();
+				ResultSet rs=stmt.executeQuery("select username,password from customers");
+				
+				String userName="";
+				String passWord="";
+				
+				while(rs.next())
+				{
+					userName=rs.getString(1);
+					passWord=rs.getString(2);
+					if(username.equals(userName) && password.equals(passWord))
+					{
+						return true;
+					}
+				}
+				
+				
+				
+				
+		
+			}
+		
+		catch (ClassNotFoundException | SQLException e) {
+			// TODO Auto-generated catch block
+		e.printStackTrace();
+		}	
+		
+		return false;
+	}
+	
+	
 }

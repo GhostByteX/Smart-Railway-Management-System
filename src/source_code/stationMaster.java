@@ -138,7 +138,10 @@ public class stationMaster {
 	public boolean logIn(String username, String password)
 	{
 		// DB CALL TO AUTENTHICATE USER
-		return true;
+		
+		if(obj.logInStationMaster(username, password))
+			return true;
+		return false;
 	}
 	
 	public boolean logOut()

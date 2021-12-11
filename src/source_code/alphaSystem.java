@@ -119,4 +119,42 @@ public class alphaSystem {
 		
 	}
 	
+	
+	public boolean stationMasterLogIn(String uname, String pass)
+	{
+		stationMaster obj = new stationMaster();
+		if(obj.logIn(uname,pass))
+			return true;
+		else
+			return false;
+		
+		
+		
+	}
+	
+	
+	
+	public boolean customersLogIn(String uname, String pass)
+	{
+		customers obj= new customers();
+		if(obj.logIn(uname,pass))
+			return true;
+		else
+			return false;
+		
+		
+		
+	}
+	
+	
+	public boolean addCustomer(String cnic, String name, int age, String email, String address, long pNum, String username, String password)
+	{
+		customers obj= new customers();
+		if(obj.createAccount(cnic, name, age, email, address, pNum, username, password))
+			return true;
+		else
+			return false;
+		
+		
+	}
 }

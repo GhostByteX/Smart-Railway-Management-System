@@ -10,9 +10,9 @@ public class customers {
 	private long phoneNumber_CUS;
 	private String username_CUS;
 	private String password_CUS;
+	PersHand obj = new MySQL();
 	
-	
-	customers()
+	public customers()
 	{
 		this.CNIC_CUS="";
 		this.name_CUS="";
@@ -116,15 +116,20 @@ public class customers {
 		return this.password_CUS;
 	}
 	
-	public void createAccount(String cnic, String name, int age, String email, String address, long phoneNumber, String username, String password)
+	public boolean createAccount(String cnic, String name, int age, String email, String address, long phoneNumber, String username, String password)
 	{
 		//DB CALL TO ADD CUSTOMER
+		if(obj.addCustomer(cnic, name, age, email, address, phoneNumber, username, password))
+			return true;
+		return false;
 	}
 	
 	public boolean logIn(String username, String password)
 	{
 		//CALL TO DB TO AUTEHNTICATE THE USER AND LOG IN
-		return true;
+		if(obj.logInCustomers(username, password))
+			return true;
+		return false;
 	}
 	
 	public boolean logOut()

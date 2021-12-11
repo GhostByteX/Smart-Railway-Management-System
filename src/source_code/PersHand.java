@@ -12,4 +12,9 @@ public abstract class PersHand {
 	public abstract boolean deleteStationMaster(String username);
 	public abstract boolean addStation(int ID, String name, String loc, String ssmcnic);
 	public abstract boolean deleteStation(int ID);
+	public abstract boolean logInStationMaster(String username, String password);
+	public abstract boolean addCustomer(String cnic, String name, int age, String email, String address, long phoneNumber, String username, String password);
+	public abstract boolean logInCustomers(String username, String password);
+	
 }
+
