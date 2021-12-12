@@ -14,22 +14,22 @@
                   <Font name="Century Schoolbook Italic" size="50.0" />
                </font>
             </Button>
-            <Button layoutX="252.0" layoutY="225.0" mnemonicParsing="false" onAction="#systemUserAddStationMaster" prefHeight="60.0" prefWidth="300.0" style="-fx-background-color: white;" text="Add Time Table" textFill="#0d0d0d">
+            <Button layoutX="252.0" layoutY="225.0" mnemonicParsing="false" onAction="#stationMasterAddTimeTable" prefHeight="60.0" prefWidth="300.0" style="-fx-background-color: white;" text="Add Time Table" textFill="#0d0d0d">
                <font>
                   <Font name="Century Schoolbook Italic" size="19.0" />
                </font>
             </Button>
-            <Button layoutX="252.0" layoutY="300.0" mnemonicParsing="false" onAction="#systemUserDelStationMaster" prefHeight="60.0" prefWidth="300.0" style="-fx-background-color: white;" text="Add Arrivals">
+            <Button layoutX="252.0" layoutY="300.0" mnemonicParsing="false" onAction="#stationMasterAddArrivals" prefHeight="60.0" prefWidth="300.0" style="-fx-background-color: white;" text="Add Arrivals">
                <font>
                   <Font name="Century Schoolbook Italic" size="19.0" />
                </font>
             </Button>
-            <Button layoutX="252.0" layoutY="375.0" mnemonicParsing="false" onAction="#systemUserAddStation" prefHeight="60.0" prefWidth="300.0" style="-fx-background-color: white;" text="Add Departures">
+            <Button layoutX="252.0" layoutY="375.0" mnemonicParsing="false" onAction="#stationMasterAddDepartures" prefHeight="60.0" prefWidth="300.0" style="-fx-background-color: white;" text="Add Departures">
                <font>
                   <Font name="Century Schoolbook Italic" size="19.0" />
                </font>
             </Button>
-            <Button layoutX="252.0" layoutY="450.0" mnemonicParsing="false" onAction="#systemUserDelStation" prefHeight="60.0" prefWidth="300.0" style="-fx-background-color: white;" text="Update Arrivals">
+            <Button layoutX="252.0" layoutY="450.0" mnemonicParsing="false" onAction="#stationMasterUpdateArrivals" prefHeight="60.0" prefWidth="300.0" style="-fx-background-color: white;" text="Update Arrivals">
                <font>
                   <Font name="Century Schoolbook Italic" size="19.0" />
                </font>
@@ -39,7 +39,7 @@
                   <Font name="Century Schoolbook Italic" size="19.0" />
                </font>
             </Button>
-            <Button layoutX="252.0" layoutY="525.0" mnemonicParsing="false" onAction="#systemUserDelStation" prefHeight="60.0" prefWidth="300.0" style="-fx-background-color: white;" text="Update Departures">
+            <Button layoutX="252.0" layoutY="525.0" mnemonicParsing="false" onAction="#stationMasterUpdateDepartures" prefHeight="60.0" prefWidth="300.0" style="-fx-background-color: white;" text="Update Departures">
                <font>
                   <Font name="Century Schoolbook Italic" size="19.0" />
                </font>

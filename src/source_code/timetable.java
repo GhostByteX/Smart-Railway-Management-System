@@ -1,16 +1,17 @@
 package source_code;
 
-import java.util.Date;
+import java.sql.Date;
+import java.time.LocalDate;
 import java.util.LinkedList;
 
 public class timetable {
 
 	private int timeTableID;
-	private Date dateOfTimeTable;
+	private LocalDate dateOfTimeTable;
 	private LinkedList<journey> arrivals;
 	private LinkedList<journey> departures;
-	
-	timetable()
+	PersHand obj = new MySQL();
+	timetable(String jID, int tnum, String tname, String origin, String dest, int status, int totalSeats, int duration, float fare)
 	{
 		this.timeTableID=0;
 		this.dateOfTimeTable=null;
@@ -18,10 +19,10 @@ public class timetable {
 		this.departures = new LinkedList<journey>();
 	}
 	
-	timetable(int ID, Date date)
+	timetable(int ID, LocalDate dateTT)
 	{
 		this.timeTableID=ID;
-		this.dateOfTimeTable=date;
+		this.dateOfTimeTable=dateTT;
 		this.arrivals = new LinkedList<journey>();
 		this.departures = new LinkedList<journey>();
 	}
@@ -29,12 +30,16 @@ public class timetable {
 	
 	//	SETTERS
 	
+	public timetable() {
+		
+	}
+
 	public void setTimeTableID(int ID)
 	{
 		this.timeTableID=ID;
 	}
 	
-	public void setDate(Date date)
+	public void setDate(LocalDate date)
 	{
 		this.dateOfTimeTable=date;
 	}
@@ -48,7 +53,7 @@ public class timetable {
 		return this.timeTableID;
 	}
 	
-	public Date getDateOfTimeTable()
+	public LocalDate getDateOfTimeTable()
 	{
 		return this.dateOfTimeTable;
 	}
@@ -56,54 +61,75 @@ public class timetable {
 	
 	//	FUNCTIONALITY
 	
-	public boolean addTimeTable(int ID, Date date)
+	public boolean addTimeTable(int ID, LocalDate dateTT)
 	{
 		//DB CALL TO ADD TIMETABLE
-		return true;
+		if(obj.addTimeTable(ID, dateTT))
+			return true;
+		
+		return false;
 	}
 	
-	public boolean addArrival(String ID, int trainNo, String trainName, String origin, String Destination,boolean status,int totalSeats,int duration, int fare)
+	public boolean addArrival(int TID,String JID, int trainNo, String trainName, String origin, String Destination,int status,int totalSeats,int duration, float fare)
 	{
-		journey obj = new arrivals(ID,trainNo,trainName,origin,Destination,status,totalSeats,duration,fare);
+		journey obj = new arrivals(JID,trainNo,trainName,origin,Destination,status,totalSeats,duration,fare);
+		
+		if(arrivals.size()<1)
+		{
+			arrivals.add(obj);
+			obj.add(TID,JID,trainNo,trainName,origin,Destination,status,totalSeats,duration,fare);
+			return true;
+		}
+		
 		for (int i=0;i<arrivals.size();i++)
 		{
-			if(arrivals.get(i).getJourneyID().equals(ID))
+			if(arrivals.get(i).getJourneyID().equals(JID))
 			{
 				arrivals.add(obj);
-				obj.add(ID,trainNo,trainName,origin,Destination,status,totalSeats,duration,fare);
+				obj.add(TID,JID,trainNo,trainName,origin,Destination,status,totalSeats,duration,fare);
+				return true;
 				
 			}
 		}
-		return true;
+		return false;
 	}
 	
-	public boolean addDeparture(String ID, int trainNo, String trainName, String origin, String Destination,boolean status,int totalSeats,int duration, int fare)
+	public boolean addDeparture(int TID,String JID, int trainNo, String trainName, String origin, String Destination,int status,int totalSeats,int duration, float fare)
 	{
-		journey obj = new departures(ID,trainNo,trainName,origin,Destination,status,totalSeats,duration,fare);
+		journey obj = new departures(JID,trainNo,trainName,origin,Destination,status,totalSeats,duration,fare);
+		
+		if(departures.size()<1)
+		{
+			departures.add(obj);
+			obj.add(TID, JID, trainNo, trainName, origin, Destination, status, totalSeats, duration, fare);
+			return true;
+		}
+		
 		for (int i=0;i<departures.size();i++)
 		{
-			if(departures.get(i).getJourneyID().equals(ID))
+			if(departures.get(i).getJourneyID().equals(JID))
 			{
 				departures.add(obj);
-				obj.add(ID,trainNo,trainName,origin,Destination,status,totalSeats,duration,fare);
+				obj.add(TID,JID,trainNo,trainName,origin,Destination,status,totalSeats,duration,fare);
+				return true;
 				
 			}
 		}
-		return true;
+		return false;
 	}
 	
 	
-	public boolean updateArrival(boolean status)
+	public boolean updateArrival(String JID,int status)
 	{
 		journey obj = new arrivals();
-		obj.update(status);
+		obj.update(JID,status);
 		return true;
 	}
 	
-	public boolean updateDeparture(boolean status)
+	public boolean updateDeparture(String JID,int status)
 	{
 		journey obj = new departures();
-		obj.update(status);
+		obj.update(JID,status);
 		return true;
 	}
 	

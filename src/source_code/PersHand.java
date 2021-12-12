@@ -1,5 +1,8 @@
 package source_code;
 
+import java.sql.Date;
+import java.time.LocalDate;
+
 public abstract class PersHand {
 
 	
@@ -15,6 +18,17 @@ public abstract class PersHand {
 	public abstract boolean logInStationMaster(String username, String password);
 	public abstract boolean addCustomer(String cnic, String name, int age, String email, String address, long phoneNumber, String username, String password);
 	public abstract boolean logInCustomers(String username, String password);
+	public abstract boolean addTimeTable(int ID, LocalDate dateTT);
+	public abstract String returnsmCNIC(String username, String password);
+	public abstract boolean addTimeTabletoStationMaster(int ID,String cnic);
+	public abstract boolean addArrivals(String JID,int TNum,String TName,String orig,String dest,int status,int seats,int dur,float fare);
+	public abstract boolean addArrivaltoTimeTable(int TID, String JID);
+	public abstract boolean addSeatsArrivals(String JID, int SeatNum, String SeatStat);
+	public abstract boolean addDepartures(String JID,int TNum,String TName,String orig,String dest,int status,int seats,int dur,float fare);
+	public abstract boolean addDeparturetoTimeTable(int TID, String JID);
+	public abstract boolean addSeatsDepartures(String JID, int SeatNum, String SeatStat);
+	public abstract boolean updateArrival(String JID,int status);
+	public abstract boolean updateDeparture(String JID,int status);
 	
 }
 

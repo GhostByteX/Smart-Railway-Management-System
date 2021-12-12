@@ -10,10 +10,10 @@ public abstract class journey {
 	private LinkedList<customers> PassengersList ;
 	private String origin;
 	private String destination;
-	private boolean status;
+	private int status;
 	private int totalSeats;
 	private int duration;
-	private double fare;
+	private float fare;
 	private LinkedList<Integer> seatsAvailability;
 	
 	journey()
@@ -25,7 +25,7 @@ public abstract class journey {
 		this.PassengersList=new LinkedList<customers>();
 		this.origin="";
 		this.destination="";
-		this.status=false;
+		this.status=0;
 		this.totalSeats=0;
 		this.duration=0;
 		this.fare=0;
@@ -33,7 +33,7 @@ public abstract class journey {
 		
 	}
 	
-	journey(String jID, int tnum, String tname, String orig, String dest, boolean status, int totalseats, int duration, double fare)
+	journey(String jID, int tnum, String tname, String orig, String dest, int status, int totalseats, int duration, float fare)
 	{
 		this.journeyID=jID;
 		this.trainNumber=tnum;
@@ -80,7 +80,7 @@ public abstract class journey {
 		this.destination=dest;
 	}
 	
-	public void setStatus(boolean status)
+	public void setStatus(int status)
 	{
 		this.status=status;
 	}
@@ -95,7 +95,7 @@ public abstract class journey {
 		this.duration=duration;
 	}
 	
-	public void setFare(double fare)
+	public void setFare(float fare)
 	{
 		this.fare=fare;
 	}
@@ -148,7 +148,7 @@ public abstract class journey {
 		return this.destination;
 	}
 	
-	public boolean getStatus()
+	public int getStatus()
 	{
 		return this.status;
 	}
@@ -163,7 +163,7 @@ public abstract class journey {
 		return this.duration;
 	}
 	
-	public double getFare()
+	public float getFare()
 	{
 		return this.fare;
 	}
@@ -183,7 +183,7 @@ public abstract class journey {
 		return true;
 	}
 	
-	abstract public boolean add(String ID, int tnum, String tname, String orig, String dest, boolean status, int totalSeats,int dur, int fare);
-	abstract public boolean update(boolean status);
+	abstract public boolean add(int TID,String JID, int tnum, String tname, String orig, String dest, int status, int totalSeats,int dur, float fare);
+	abstract public boolean update(String jID, int status);
 	
 }

@@ -1,5 +1,6 @@
 package source_code;
 
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.LinkedList;
 
@@ -166,28 +167,49 @@ public class stationMaster {
 		return false;
 	}
 	
-	public boolean addTimeTable(int ID, Date dateOfTimeTable)
+	public boolean addTimeTable(int ID, LocalDate dateTT )
 	{
-		timetable obj = new timetable(ID,dateOfTimeTable);
+		timetable obj = new timetable(ID,dateTT);
+		if(trainSchedule.size()<1)
+		{
+			trainSchedule.add(obj);
+			trainSchedule.get(0).addTimeTable(ID,dateTT);
+			return true;
+			
+		}
+		
+		
 		for(int i=0;i<trainSchedule.size();i++)
 		{
 			if(trainSchedule.get(i).getTimeTableID()==ID)
 			{
 				trainSchedule.add(obj);
-				trainSchedule.get(i).addTimeTable(ID,dateOfTimeTable);
+				trainSchedule.get(i).addTimeTable(ID,dateTT);
 				return true;
 			}
 		}
 		return false;
 	}
 	
-	public boolean addArrival(int JID,String ID, int tnum, String tname, String origin, String dest, boolean status,int totalSeats, int duration, int fare)
+	public boolean addArrival(int TID,String JID, int tnum, String tname, String origin, String dest, int status,int totalSeats, int duration, float fare)
 	{
+		timetable obj = new timetable(JID,tnum,tname,origin,dest,status,totalSeats,duration,fare);
+		
+		if(trainSchedule.size()<1)
+		{
+			trainSchedule.add(obj);
+			obj.addArrival(TID, JID, tnum, tname, origin, dest, status, totalSeats, duration, fare);
+			return true;
+		}
+		
+		
+		
 		for (int i=0;i<trainSchedule.size();i++)
 		{
-			if(trainSchedule.get(i).getTimeTableID()==JID)
+			if(trainSchedule.get(i).getTimeTableID()==TID)
 			{
-				trainSchedule.get(i).addArrival(ID,tnum,tname, origin, dest, status, totalSeats, duration, fare);
+				trainSchedule.get(i).addArrival(TID,JID,tnum,tname, origin, dest, status, totalSeats, duration, fare);
+				obj.addArrival(TID, JID, i, tname, origin, dest, status, totalSeats, duration, fare);
 				return true;
 			}
 		}
@@ -195,44 +217,110 @@ public class stationMaster {
 	}
 	
 	
-	public boolean addDepartures(int JID, String ID, int tnum, String tname, String origin, String dest, boolean status, int totalSeats,int duration, int fare)
+	public boolean addDepartures(int TID, String JID, int tnum, String tname, String origin, String dest, int status, int totalSeats,int duration, float fare)
 	{
+		timetable obj = new timetable(JID,tnum,tname,origin,dest,status,totalSeats,duration,fare);
+		
+		if(trainSchedule.size()<1)
+		{
+			trainSchedule.add(obj);
+			obj.addDeparture(TID, JID, tnum, tname, origin, dest, status, totalSeats, duration, fare);
+			return true;
+		}
+		
+		
 		for (int i=0;i<trainSchedule.size();i++)
 		{
-			if(trainSchedule.get(i).getTimeTableID()==JID)
+			if(trainSchedule.get(i).getTimeTableID()==TID)
 			{
-				trainSchedule.get(i).addDeparture(ID,tnum,tname, origin, dest, status, totalSeats, duration, fare);
+				trainSchedule.get(i).addDeparture(TID,JID,tnum,tname, origin, dest, status, totalSeats, duration, fare);
+				obj.addDeparture(TID, JID, i, tname, origin, dest, status, totalSeats, duration, fare);
 				return true;
 			}
 		}
 		return false;
 	}
 	
-	public boolean updateArrival(int JID,boolean status)
+	public boolean updateArrival(int ID,String JID,int status)
 	{
+		timetable obj = new timetable();
+		if(trainSchedule.size()<1)
+		{
+			obj.updateArrival(JID, status);
+			return true;
+		}
+		
+		
 		for (int i=0;i<trainSchedule.size();i++)
 		{
-			if(trainSchedule.get(i).getTimeTableID()==JID)
+			if(trainSchedule.get(i).getTimeTableID()==ID)
 			{
-				trainSchedule.get(i).updateArrival(status);
+				trainSchedule.get(i).updateArrival(JID,status);
 				return true;
 			}
 		}
 		return false;
 	}
 	
-	public boolean updateDeparture(int JID,boolean status)
+	public boolean updateDeparture(int ID,String JID,int status)
 	{
+		
+		timetable obj = new timetable();
+		if(trainSchedule.size()<1)
+		{
+			obj.updateDeparture(JID, status);
+			return true;
+		}
+		
+		
 		for (int i=0;i<trainSchedule.size();i++)
 		{
-			if(trainSchedule.get(i).getTimeTableID()==JID)
+			if(trainSchedule.get(i).getTimeTableID()==ID)
 			{
-				trainSchedule.get(i).updateDeparture(status);
+				trainSchedule.get(i).updateDeparture(JID,status);
 				return true;
 			}
 		}
 		return false;
 	}
 	
+	public String returnCNIC(String username,String password)
+	{
+		return obj.returnsmCNIC(username, password);
+	}
 
+	public boolean addTimeTabletoSM(int iD, String cnic) {
+		if(obj.addTimeTabletoStationMaster(iD, cnic))
+			return true;
+		return false;
+	}
+
+	
+	public boolean addArrivaltoTimeTable(int ID, String JID)
+	{
+		if(obj.addArrivaltoTimeTable(ID, JID))
+			return true;
+		return false;
+	}
+	
+	public boolean addSeatsArrivals(String JID, int SeatNum, String SeatStat)
+	{
+		if(obj.addSeatsArrivals(JID, SeatNum, SeatStat))
+			return true;
+		return false;
+	}
+	
+	public boolean addDeparturetoTimeTable(int ID, String JID)
+	{
+		if(obj.addDeparturetoTimeTable(ID, JID))
+			return true;
+		return false;
+	}
+	
+	public boolean addSeatsDepartures(String JID, int SeatNum, String SeatStat)
+	{
+		if(obj.addSeatsDepartures(JID, SeatNum, SeatStat))
+			return true;
+		return false;
+	}
 }

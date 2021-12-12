@@ -1,6 +1,9 @@
 package application;
 import java.io.IOException;
 import java.time.Duration;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.sql.Date;
 
 import javafx.animation.PauseTransition;
 import javafx.event.ActionEvent;
@@ -10,6 +13,7 @@ import javafx.scene.Group;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
@@ -69,6 +73,41 @@ public class UI_Call_Handler {
 	@FXML
 	private TextField ssmcnic;
 	
+	@FXML
+	private DatePicker date;
+	
+	@FXML
+	private TextField timetableID;
+	
+	private static String smCnic;
+	
+	
+	@FXML
+	private TextField journeyID;
+	
+	@FXML
+	private TextField trainNumber;
+	
+	@FXML
+	private TextField trainName;
+	
+	@FXML
+	private TextField origin;
+	
+	@FXML
+	private TextField destination;
+	
+	@FXML
+	private TextField status;
+	
+	@FXML
+	private TextField seats;
+	
+	@FXML
+	private TextField duration;
+	
+	@FXML
+	private TextField fare;
 	
 	@FXML
 	public void superAdminHomePage(ActionEvent Event)
@@ -691,7 +730,7 @@ public class UI_Call_Handler {
 				FXMLLoader fxmlLoader=new FXMLLoader(getClass().getResource("superAdminSystemUserDeleted_UI.fxml"));
 				Parent root_one = (Parent) fxmlLoader.load();
 				Stage stage = new Stage();
-				stage.setTitle("Station Added");
+				stage.setTitle("Station Deleted");
 				stage.setScene(new Scene(root_one));
 				stage.show();
 			}
@@ -701,7 +740,7 @@ public class UI_Call_Handler {
 				FXMLLoader fxmlLoader=new FXMLLoader(getClass().getResource("superAdminSystemUserNotDeleted_UI.fxml"));
 				Parent root_one = (Parent) fxmlLoader.load();
 				Stage stage = new Stage();
-				stage.setTitle("Station Not Added");
+				stage.setTitle("Station Not Deleted");
 				stage.setScene(new Scene(root_one));
 				stage.show();
 			}
@@ -727,6 +766,7 @@ public class UI_Call_Handler {
 			
 			if(alphaobj.stationMasterLogIn(username, password))
 			{
+				smCnic=alphaobj.getStationMasterCNIC(username, password);
 				FXMLLoader fxmlLoader=new FXMLLoader(getClass().getResource("stationMasterMenu_UI.fxml"));
 				Parent root_one = (Parent) fxmlLoader.load();
 				Stage stage = new Stage();
@@ -866,6 +906,349 @@ public class UI_Call_Handler {
 			
 			
 			
+	
+		}catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+	}
+	
+	
+	
+	@FXML
+	public void stationMasterAddTimeTable(ActionEvent Event)
+	{
+		try
+		{
+			FXMLLoader fxmlLoader=new FXMLLoader(getClass().getResource("stationMasterAddTimeTable_UI.fxml"));
+			Parent root_one = (Parent) fxmlLoader.load();
+			Stage stage = new Stage();
+			stage.setTitle("ADD A TIME TABLE");
+			stage.setScene(new Scene(root_one));
+			stage.show();
+			
+	
+		}catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+	}
+	
+
+
+	@FXML
+	public void stationMasterAddingTimeTable(ActionEvent Event)
+	{
+		String TID=timetableID.getText();
+		int timetableID=Integer.parseInt(TID);
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd, yyyy");
+		LocalDate dateTT = date.getValue();
+		
+		
+		try
+		{
+			if(alphaobj.addTimeTable(timetableID, dateTT))
+			{
+				if(alphaobj.addTimeTabletoStationMaster(timetableID,smCnic))
+				{
+					FXMLLoader fxmlLoader=new FXMLLoader(getClass().getResource("superAdminSystemUserAdded_UI.fxml"));
+					Parent root_one = (Parent) fxmlLoader.load();
+					Stage stage = new Stage();
+					stage.setTitle("TIME TABLE ADDED");
+					stage.setScene(new Scene(root_one));
+					stage.show();
+				}
+			}
+			
+			else
+			{
+				FXMLLoader fxmlLoader=new FXMLLoader(getClass().getResource("superAdminSystemUserNotAdded_UI.fxml"));
+				Parent root_one = (Parent) fxmlLoader.load();
+				Stage stage = new Stage();
+				stage.setTitle("TIME TABLE NOT ADDED");
+				stage.setScene(new Scene(root_one));
+				stage.show();
+				
+			}
+	
+		}catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+	}
+	
+	
+	@FXML
+	public void stationMasterAddArrivals(ActionEvent Event)
+	{
+		try
+		{
+			FXMLLoader fxmlLoader=new FXMLLoader(getClass().getResource("stationMasterAddArrivals_UI.fxml"));
+			Parent root_one = (Parent) fxmlLoader.load();
+			Stage stage = new Stage();
+			stage.setTitle("ADD AN ARRIVAL IN THE TIME TABLE");
+			stage.setScene(new Scene(root_one));
+			stage.show();
+			
+	
+		}catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+	}
+	
+	
+	@FXML
+	public void stationMasterAddingArrivals(ActionEvent Event)
+	{
+		
+		String TID,JID,TNum,TName,orig,dest,stat,totalseats,dur,fa;
+		int TimeTableID,TrainNumber,statusofArrival,TotalSeats,Duration;
+		float Fare;
+		
+		TID=timetableID.getText();
+		TimeTableID=Integer.parseInt(TID);
+		JID=journeyID.getText();
+		TNum=trainNumber.getText();
+		TrainNumber=Integer.parseInt(TNum);
+		TName=trainName.getText();
+		orig=origin.getText();
+		dest=destination.getText();
+		stat=status.getText();
+		statusofArrival=Integer.parseInt(stat);
+		dur=duration.getText();
+		Duration=Integer.parseInt(dur);
+		totalseats=seats.getText();
+		TotalSeats=Integer.parseInt(totalseats);
+		fa=fare.getText();
+		Fare=Float.parseFloat(fa);
+		
+		try
+		{
+			if(alphaobj.addArrival(TimeTableID, JID, TrainNumber, TName, orig, dest, statusofArrival, TotalSeats, Duration, Fare))
+			{
+			
+					if(alphaobj.addArrivaltoTimeTable(TimeTableID,JID))
+					{
+						for (int i=0;i<TotalSeats;i++)
+						{
+							alphaobj.addSeatsArrivals(JID, i+1, "Available");
+						}
+						FXMLLoader fxmlLoader=new FXMLLoader(getClass().getResource("superAdminSystemUserAdded_UI.fxml"));
+						Parent root_one = (Parent) fxmlLoader.load();
+						Stage stage = new Stage();
+						stage.setTitle("ARRIVAL ADDED");
+						stage.setScene(new Scene(root_one));
+						stage.show();
+					}
+			}
+			
+			else
+			{
+				FXMLLoader fxmlLoader=new FXMLLoader(getClass().getResource("superAdminSystemUserNotAdded_UI.fxml"));
+				Parent root_one = (Parent) fxmlLoader.load();
+				Stage stage = new Stage();
+				stage.setTitle("ARRIVAL NOT ADDED");
+				stage.setScene(new Scene(root_one));
+				stage.show();
+				
+			}
+	
+		}catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+	}
+	
+	@FXML
+	public void stationMasterAddDepartures(ActionEvent Event)
+	{
+		try
+		{
+			FXMLLoader fxmlLoader=new FXMLLoader(getClass().getResource("stationMasterAddDepartures_UI.fxml"));
+			Parent root_one = (Parent) fxmlLoader.load();
+			Stage stage = new Stage();
+			stage.setTitle("ADD A DEPARTURE IN THE TIME TABLE");
+			stage.setScene(new Scene(root_one));
+			stage.show();
+			
+	
+		}catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+	}
+	
+	
+	@FXML
+	public void stationMasterAddingDepartures(ActionEvent Event)
+	{
+		
+		String TID,JID,TNum,TName,orig,dest,stat,totalseats,dur,fa;
+		int TimeTableID,TrainNumber,statusofArrival,TotalSeats,Duration;
+		float Fare;
+		
+		TID=timetableID.getText();
+		TimeTableID=Integer.parseInt(TID);
+		JID=journeyID.getText();
+		TNum=trainNumber.getText();
+		TrainNumber=Integer.parseInt(TNum);
+		TName=trainName.getText();
+		orig=origin.getText();
+		dest=destination.getText();
+		stat=status.getText();
+		statusofArrival=Integer.parseInt(stat);
+		dur=duration.getText();
+		Duration=Integer.parseInt(dur);
+		totalseats=seats.getText();
+		TotalSeats=Integer.parseInt(totalseats);
+		fa=fare.getText();
+		Fare=Float.parseFloat(fa);
+		
+		try
+		{
+			if(alphaobj.addDeparture(TimeTableID, JID, TrainNumber, TName, orig, dest, statusofArrival, TotalSeats, Duration, Fare))
+			{
+			
+					if(alphaobj.addDeparturetoTimeTable(TimeTableID,JID))
+					{
+						for (int i=0;i<TotalSeats;i++)
+						{
+							alphaobj.addSeatsDepartures(JID, i+1,"Available");
+						}
+						FXMLLoader fxmlLoader=new FXMLLoader(getClass().getResource("superAdminSystemUserAdded_UI.fxml"));
+						Parent root_one = (Parent) fxmlLoader.load();
+						Stage stage = new Stage();
+						stage.setTitle("DEPARTURE ADDED");
+						stage.setScene(new Scene(root_one));
+						stage.show();
+					}
+			}
+			
+			else
+			{
+				FXMLLoader fxmlLoader=new FXMLLoader(getClass().getResource("superAdminSystemUserNotAdded_UI.fxml"));
+				Parent root_one = (Parent) fxmlLoader.load();
+				Stage stage = new Stage();
+				stage.setTitle("DEPARTURE NOT ADDED");
+				stage.setScene(new Scene(root_one));
+				stage.show();
+				
+			}
+	
+		}catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+	}
+	
+	@FXML
+	public void stationMasterUpdateArrivals(ActionEvent Event)
+	{
+		try
+		{
+			FXMLLoader fxmlLoader=new FXMLLoader(getClass().getResource("stationMasterUpdateArrivals_UI.fxml"));
+			Parent root_one = (Parent) fxmlLoader.load();
+			Stage stage = new Stage();
+			stage.setTitle("UPDATE ARRIVAL");
+			stage.setScene(new Scene(root_one));
+			stage.show();
+			
+	
+		}catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+	}
+	
+	
+	@FXML
+	public void stationMasterUpdatingArrivals(ActionEvent Event)
+	{
+		String TID=timetableID.getText();
+		String JID=journeyID.getText();
+		String stat=status.getText();
+		int Status = Integer.parseInt(stat);
+		int TimeTableID=Integer.parseInt(TID);
+		
+		try
+		{
+			if(alphaobj.updateArrival(TimeTableID, JID, Status))
+			{
+				FXMLLoader fxmlLoader=new FXMLLoader(getClass().getResource("ArrivalsUpdated_UI.fxml"));
+				Parent root_one = (Parent) fxmlLoader.load();
+				Stage stage = new Stage();
+				stage.setTitle("ARRIVAL UPDATED");
+				stage.setScene(new Scene(root_one));
+				stage.show();
+			}
+			
+			else
+			{
+				FXMLLoader fxmlLoader=new FXMLLoader(getClass().getResource("ArrivalsNotUpdated_UI.fxml"));
+				Parent root_one = (Parent) fxmlLoader.load();
+				Stage stage = new Stage();
+				stage.setTitle("ARRIVAL NOT UPDATED");
+				stage.setScene(new Scene(root_one));
+				stage.show();
+			}
+	
+		}catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+	}
+	
+	@FXML
+	public void stationMasterUpdateDepartures(ActionEvent Event)
+	{
+		try
+		{
+			FXMLLoader fxmlLoader=new FXMLLoader(getClass().getResource("stationMasterUpdateDeparture_UI.fxml"));
+			Parent root_one = (Parent) fxmlLoader.load();
+			Stage stage = new Stage();
+			stage.setTitle("UPDATE DEPARTURE");
+			stage.setScene(new Scene(root_one));
+			stage.show();
+			
+	
+		}catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+	}
+	
+	
+	@FXML
+	public void stationMasterUpdatingDepartures(ActionEvent Event)
+	{
+		String TID=timetableID.getText();
+		String JID=journeyID.getText();
+		String stat=status.getText();
+		int Status = Integer.parseInt(stat);
+		int TimeTableID=Integer.parseInt(TID);
+		
+		try
+		{
+			if(alphaobj.updateDeparture(TimeTableID, JID, Status))
+			{
+				FXMLLoader fxmlLoader=new FXMLLoader(getClass().getResource("ArrivalsUpdated_UI.fxml"));
+				Parent root_one = (Parent) fxmlLoader.load();
+				Stage stage = new Stage();
+				stage.setTitle("DEPARTURE UPDATED");
+				stage.setScene(new Scene(root_one));
+				stage.show();
+			}
+			
+			else
+			{
+				FXMLLoader fxmlLoader=new FXMLLoader(getClass().getResource("ArrivalsNotUpdated_UI.fxml"));
+				Parent root_one = (Parent) fxmlLoader.load();
+				Stage stage = new Stage();
+				stage.setTitle("DEPARTURE NOT UPDATED");
+				stage.setScene(new Scene(root_one));
+				stage.show();
+			}
 	
 		}catch(Exception e)
 		{

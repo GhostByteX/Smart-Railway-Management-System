@@ -1,5 +1,8 @@
 package source_code;
 
+import java.sql.Date;
+import java.time.LocalDate;
+
 public class alphaSystem {
 
 	private superAdmin SA_USER;
@@ -157,4 +160,96 @@ public class alphaSystem {
 		
 		
 	}
+	
+	public boolean addTimeTable(int ID, LocalDate dateTT)
+	{
+		stationMaster obj = new stationMaster();
+		if(obj.addTimeTable(ID, dateTT))
+			return true;
+		return false;
+	}
+	
+	
+	public String getStationMasterCNIC(String username,String password)
+	{
+		stationMaster obj = new stationMaster();
+		return(obj.returnCNIC(username, password));
+		
+	}
+	
+	
+	public boolean addTimeTabletoStationMaster(int ID, String cnic)
+	{
+		stationMaster obj = new stationMaster();
+		if(obj.addTimeTabletoSM(ID, cnic))
+			return true;
+		return false;
+	}
+	
+	
+	public boolean addArrival(int ID,String JID,int TNum,String TName,String orig,String dest,int stat,int seats,int dur, float fare)
+	{
+		stationMaster obj = new stationMaster();
+		if(obj.addArrival(ID, JID, TNum, TName, orig, dest, stat, seats, dur, fare))
+			return true;
+		return false;
+	}
+	
+	public boolean addArrivaltoTimeTable(int TID,String JID)
+	{
+		stationMaster obj = new stationMaster();
+		if(obj.addArrivaltoTimeTable(TID, JID))
+			return true;
+		return false;
+	}
+	
+	public boolean addSeatsArrivals(String JID, int SeatNum, String SeatStat)
+	{
+		stationMaster obj = new stationMaster();
+		if(obj.addSeatsArrivals(JID, SeatNum, SeatStat))
+			return true;
+		return false;
+	}
+	
+	public boolean addDeparture(int ID,String JID,int TNum,String TName,String orig,String dest,int stat,int seats,int dur, float fare)
+	{
+		stationMaster obj = new stationMaster();
+		if(obj.addDepartures(ID, JID, TNum, TName, orig, dest, stat, seats, dur, fare))
+			return true;
+		return false;
+	}
+	
+	public boolean addDeparturetoTimeTable(int TID,String JID)
+	{
+		stationMaster obj = new stationMaster();
+		if(obj.addDeparturetoTimeTable(TID, JID))
+			return true;
+		return false;
+	}
+	
+	public boolean addSeatsDepartures(String JID, int SeatNum, String SeatStat)
+	{
+		stationMaster obj = new stationMaster();
+		if(obj.addSeatsDepartures(JID, SeatNum, SeatStat))
+			return true;
+		return false;
+	}
+	
+	public boolean updateArrival(int TID,String JID, int status)
+	{
+		stationMaster obj = new stationMaster();
+		if(obj.updateArrival(TID, JID, status))
+			return true;
+		return false;
+	}
+	
+	
+	public boolean updateDeparture(int TID,String JID, int status)
+	{
+		stationMaster obj = new stationMaster();
+		if(obj.updateDeparture(TID, JID, status))
+			return true;
+		return false;
+	}
 }
+
