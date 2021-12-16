@@ -29,6 +29,8 @@ public abstract class PersHand {
 	public abstract boolean addSeatsDepartures(String JID, int SeatNum, String SeatStat);
 	public abstract boolean updateArrival(String JID,int status);
 	public abstract boolean updateDeparture(String JID,int status);
+	public abstract String getArrivals();
+	public abstract String getDepartures();
 	
 }
 

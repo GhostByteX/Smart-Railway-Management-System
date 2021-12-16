@@ -7,6 +7,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 
 public class MySQL extends PersHand {
@@ -813,5 +814,134 @@ public class MySQL extends PersHand {
 		e.printStackTrace();
 		}
 		return false;
+	}
+	
+	public String getArrivals()
+	{
+		
+		String s="";
+		Date d=null;
+		try
+		{
+			Class.forName(DriverClass);
+			Connection con=DriverManager.getConnection(Path_DB, USERNAME_DB, PASSWORD_DB);
+			
+			
+			
+			String selectSql = "SELECT * FROM arrivals";
+			Statement statement = con.createStatement(ResultSet.TYPE_FORWARD_ONLY,
+					ResultSet.CONCUR_UPDATABLE);
+			ResultSet rs = statement.executeQuery(selectSql);
+			
+			
+			
+			
+			
+			s+="\n     Journey ID"+"                      "+"Train Number"+"                      "+"Train Name"+"                      "+"Origin"+"                      "+"Destination"+"                      "+"Status"+"                      "+"Total Seats"+"                      "+"Duration"+"                      "+"Fare"+"\n\n\n\n";
+			
+			while(rs.next())
+			{
+				
+				
+				s+="     "+rs.getString(1)+"                             "+rs.getString(2)+"                                        "+rs.getString(3)+"                            "+rs.getString(4)+"                     "+rs.getString(5)+"                             "+rs.getString(6)+"                             "+rs.getString(7)+"                                  "+rs.getString(8)+" hrs                           $"+rs.getString(9)+"\n\n\n";
+			
+			
+			
+			
+			}
+			return s;
+			
+		}
+		catch (ClassNotFoundException | SQLException e) {
+			// TODO Auto-generated catch block
+		e.printStackTrace();
+		}
+		
+		
+		return "";
+		
+	}
+	
+	public String getDepartures()
+	{
+		
+		String s="";
+		Date d=null;
+		try
+		{
+			Class.forName(DriverClass);
+			Connection con=DriverManager.getConnection(Path_DB, USERNAME_DB, PASSWORD_DB);
+			String selectSql = "SELECT * FROM departures";
+			Statement statement = con.createStatement(ResultSet.TYPE_FORWARD_ONLY,
+					ResultSet.CONCUR_UPDATABLE);
+			ResultSet rs = statement.executeQuery(selectSql);
+			
+			s+="\n     Journey ID"+"                      "+"Train Number"+"                      "+"Train Name"+"                      "+"Origin"+"                      "+"Destination"+"                      "+"Status"+"                      "+"Total Seats"+"                      "+"Duration"+"                      "+"Fare\n\n\n\n";
+			
+			while(rs.next())
+			{
+				s+="     "+rs.getString(1)+"                             "+rs.getString(2)+"                                        "+rs.getString(3)+"                            "+rs.getString(4)+"                     "+rs.getString(5)+"                             "+rs.getString(6)+"                             "+rs.getString(7)+"                                  "+rs.getString(8)+" hrs                           $"+rs.getString(9);
+				
+			
+			}
+			return s;
+			
+		}
+		catch (ClassNotFoundException | SQLException e) {
+			// TODO Auto-generated catch block
+		e.printStackTrace();
+		}
+		
+		
+		return "";
+		
+	}
+	
+	public Date getArrivalTID(String d)
+	{
+		Date a=null;
+		try
+		{
+			Class.forName(DriverClass);
+			Connection con=DriverManager.getConnection(Path_DB, USERNAME_DB, PASSWORD_DB);
+			PreparedStatement pstmt=con.prepareStatement("select TimeTableID from timetablearrivals Where Journey_ID=?");
+			pstmt.setString(1,d);
+			ResultSet rs2=pstmt.executeQuery();
+			a=getArrivalDate(rs2.getInt(1));
+			System.out.print("A");
+			
+			return a;
+		}
+		catch (ClassNotFoundException | SQLException e) {
+			// TODO Auto-generated catch block
+		e.printStackTrace();
+		}
+		
+		return a;
+		
+	}
+	
+	public Date getArrivalDate(int TID)
+	{
+		String a="";
+		Date t = null;
+		try
+		{
+			Class.forName(DriverClass);
+			Connection con=DriverManager.getConnection(Path_DB, USERNAME_DB, PASSWORD_DB);
+			PreparedStatement pstmt=con.prepareStatement("select * from timetable Where TimeTableID=?");
+			pstmt.setInt(1,TID);
+			ResultSet rs2=pstmt.executeQuery();
+			t=rs2.getDate(2);
+			System.out.print("D");
+			return t;
+			
+		}
+		catch (ClassNotFoundException | SQLException e) {
+			// TODO Auto-generated catch block
+		e.printStackTrace();
+		}
+		
+		return t;
 	}
 }

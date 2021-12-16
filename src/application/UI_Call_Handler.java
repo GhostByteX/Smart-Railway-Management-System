@@ -17,6 +17,8 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontPosture;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import source_code.alphaSystem;
@@ -1256,4 +1258,77 @@ public class UI_Call_Handler {
 		}
 	}
 	
+	
+	@FXML
+	public void customerViewTimeTable(ActionEvent Event)
+	{
+		try
+		{
+			FXMLLoader fxmlLoader=new FXMLLoader(getClass().getResource("customersViewTimeTable_UI.fxml"));
+			Parent root_one = (Parent) fxmlLoader.load();
+			Stage stage = new Stage();
+			stage.setTitle("VIEW TIME TABLE");
+			stage.setScene(new Scene(root_one));
+			stage.show();
+			
+	
+		}catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+	}
+	
+	
+	@FXML
+	public void customerViewArrivals(ActionEvent Event)
+	{
+		try
+		{
+			String s=alphaobj.getArrivals();
+			Text text= new Text();
+			text.setX(50); 
+		    text.setY(50); 
+		    text.setScaleX(1);
+		    text.setScaleY(1);
+		    Group root = new Group(text);   
+			text.setText(s);
+			text.setFont(Font.font("Lato", FontPosture.ITALIC, 15));
+			Stage stage = new Stage();
+			stage.setTitle("Arrivals");
+			stage.setScene(new Scene(root,800,800));
+			stage.show();
+	
+		}catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+	}
+	
+	
+	@FXML
+	public void customerViewDepartures(ActionEvent Event)
+	{
+		try
+		{
+			String s=alphaobj.getDepartures();
+			String d="";
+			Text text= new Text();
+			text.setX(50); 
+		    text.setY(50); 
+		    text.setScaleX(1);
+		    text.setScaleY(1);
+		    Group root = new Group(text);   
+			text.setText(s);
+			text.setFont(Font.font("Lato", FontPosture.ITALIC, 15));
+			Stage stage = new Stage();
+			stage.setTitle("Departures");
+			stage.setScene(new Scene(root,800,800));
+			stage.show();
+			
+	
+		}catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+	}
 }

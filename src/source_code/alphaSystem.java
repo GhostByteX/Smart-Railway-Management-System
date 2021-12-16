@@ -251,5 +251,19 @@ public class alphaSystem {
 			return true;
 		return false;
 	}
+	
+	public String getArrivals()
+	{
+		PersHand obj = new MySQL();
+		return obj.getArrivals();
+		
+	}
+	
+	public String getDepartures()
+	{
+		PersHand obj = new MySQL();
+		return obj.getDepartures();
+		
+	}
 }
 
