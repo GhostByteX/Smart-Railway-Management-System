@@ -2,6 +2,7 @@ package source_code;
 
 import java.sql.Date;
 import java.time.LocalDate;
+import java.util.LinkedList;
 
 public class alphaSystem {
 
@@ -100,10 +101,10 @@ public class alphaSystem {
 	}
 	
 	
-	public boolean systemUserAddStation(int ID,String name, String loc, String ssmcnic)
+	public boolean systemUserAddStation(int ID,String name, String loc, String ssmcnic,String city)
 	{
 		systemUser obj = new systemUser();
-		if(obj.addStation(ID, name, loc, ssmcnic))
+		if(obj.addStation(ID, name, loc, ssmcnic,city))
 			return true;
 		else
 			return false;
@@ -264,6 +265,41 @@ public class alphaSystem {
 		PersHand obj = new MySQL();
 		return obj.getDepartures();
 		
+	}
+	
+	public String getStations(String location)
+	{
+		PersHand obj = new MySQL();
+		return obj.getStations(location);
+	}
+	
+	public String getStationID(String stationName)
+	{
+		PersHand obj = new MySQL();
+		return obj.getStationID(stationName);
+	}
+	
+	public LinkedList<Integer> bookTicket(String orig,String dest,int noOfSeats,String cnic)
+	{
+		PersHand obj = new MySQL();
+		LinkedList<Integer> sNo= new LinkedList<Integer>();
+		sNo=obj.bookTicket(orig, dest, noOfSeats, cnic);
+		return sNo;
+	}
+	
+	public String getCustomersCNIC(String username,String password)
+	{
+		PersHand obj = new MySQL();
+		return obj.returnCustomerCNIC(username, password);
+		
+	}
+
+	public LinkedList<Integer> bookTicket2(String orig, String dest, int noOfSeats, String cnic) 
+	{
+		PersHand obj = new MySQL();
+		LinkedList<Integer> sNo= new LinkedList<Integer>();
+		sNo=obj.bookTicket2(orig, dest, noOfSeats, cnic);
+		return sNo;
 	}
 }
 

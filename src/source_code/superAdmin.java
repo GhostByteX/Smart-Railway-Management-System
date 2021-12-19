@@ -16,7 +16,7 @@ public class superAdmin {
 	PersHand obj = new MySQL();
 	systemUser SUobj = new systemUser();
 	
-	public superAdmin()
+	superAdmin()
 	{
 		this.CNIC_SA="";
 		this.name_SA="";

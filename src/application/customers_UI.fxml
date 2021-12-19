@@ -14,7 +14,7 @@
                   <Font name="Century Schoolbook Italic" size="50.0" />
                </font>
             </Button>
-            <Button layoutX="252.0" layoutY="225.0" mnemonicParsing="false" onAction="#systemUserAddStationMaster" prefHeight="60.0" prefWidth="300.0" style="-fx-background-color: white;" text="Book Ticket" textFill="#0d0d0d">
+            <Button layoutX="252.0" layoutY="225.0" mnemonicParsing="false" onAction="#customerBookTicket" prefHeight="60.0" prefWidth="300.0" style="-fx-background-color: white;" text="Book Ticket" textFill="#0d0d0d">
                <font>
                   <Font name="Century Schoolbook Italic" size="19.0" />
                </font>

@@ -2,6 +2,7 @@ package source_code;
 
 import java.sql.Date;
 import java.time.LocalDate;
+import java.util.LinkedList;
 
 public abstract class PersHand {
 
@@ -13,7 +14,7 @@ public abstract class PersHand {
 	public abstract boolean logInSystemUser(String username, String password);
 	public abstract boolean addStationMaster(String cnic,String name,int age, String email, String address, long pNum, String username, String password);
 	public abstract boolean deleteStationMaster(String username);
-	public abstract boolean addStation(int ID, String name, String loc, String ssmcnic);
+	public abstract boolean addStation(int ID, String name, String loc, String ssmcnic,String city);
 	public abstract boolean deleteStation(int ID);
 	public abstract boolean logInStationMaster(String username, String password);
 	public abstract boolean addCustomer(String cnic, String name, int age, String email, String address, long phoneNumber, String username, String password);
@@ -31,6 +32,11 @@ public abstract class PersHand {
 	public abstract boolean updateDeparture(String JID,int status);
 	public abstract String getArrivals();
 	public abstract String getDepartures();
+	public abstract String getStations(String loc);
+	public abstract String getStationID(String stationName);
+	public abstract LinkedList<Integer> bookTicket(String orig,String dest,int seats,String cnic);
+	public abstract String returnCustomerCNIC(String username, String password);
+	public abstract LinkedList<Integer> bookTicket2(String orig, String dest, int noOfSeats, String cnic);
 	
 }
 

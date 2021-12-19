@@ -3,6 +3,7 @@ import java.io.IOException;
 import java.time.Duration;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.LinkedList;
 import java.sql.Date;
 
 import javafx.animation.PauseTransition;
@@ -110,6 +111,25 @@ public class UI_Call_Handler {
 	
 	@FXML
 	private TextField fare;
+	
+	@FXML
+	private TextField numberOfSeats;
+	
+	
+	@FXML
+	private TextField sscity;
+	
+	@FXML
+	private  static String orig;
+	
+	@FXML
+	private static String dest;
+	
+	@FXML 
+	private static String cusUserName;
+	
+	@FXML
+	private static String cusPassword;
 	
 	@FXML
 	public void superAdminHomePage(ActionEvent Event)
@@ -672,7 +692,7 @@ public class UI_Call_Handler {
 	@FXML
 	public void systemUserAddedStation(ActionEvent Event)
 	{
-		String sId,name,loc,cnic;
+		String sId,name,loc,cnic,city;
 		int sid=0;
 		
 		sId=sID.getText();
@@ -680,12 +700,13 @@ public class UI_Call_Handler {
 		name=sname.getText();
 		loc=sloc.getText();
 		cnic=ssmcnic.getText();
+		city=sscity.getText();
 		
 		
 		try
 		{
 			
-			if(alphaobj.systemUserAddStation(sid, name, loc, cnic))
+			if(alphaobj.systemUserAddStation(sid, name, loc, cnic,city))
 			{
 				FXMLLoader fxmlLoader=new FXMLLoader(getClass().getResource("superAdminSystemUserAdded_UI.fxml"));
 				Parent root_one = (Parent) fxmlLoader.load();
@@ -812,6 +833,8 @@ public class UI_Call_Handler {
 			
 			if(alphaobj.customersLogIn(username, password))
 			{
+				cusUserName=username;
+				cusPassword=password;
 				FXMLLoader fxmlLoader=new FXMLLoader(getClass().getResource("customers_UI.fxml"));
 				Parent root_one = (Parent) fxmlLoader.load();
 				Stage stage = new Stage();
@@ -1322,6 +1345,129 @@ public class UI_Call_Handler {
 			text.setFont(Font.font("Lato", FontPosture.ITALIC, 15));
 			Stage stage = new Stage();
 			stage.setTitle("Departures");
+			stage.setScene(new Scene(root,800,800));
+			stage.show();
+			
+	
+		}catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+	}
+	
+	@FXML
+	public void customerBookTicket(ActionEvent Event)
+	{
+		try
+		{
+			FXMLLoader fxmlLoader=new FXMLLoader(getClass().getResource("customersBookingDetails_UI.fxml"));
+			Parent root_one = (Parent) fxmlLoader.load();
+			Stage stage = new Stage();
+			stage.setTitle("BOOK TICKET");
+			stage.setScene(new Scene(root_one));
+			stage.show();
+			
+	
+		}catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+	}
+	
+	
+	@FXML
+	public void customerBookTicket2(ActionEvent Event)
+	{
+		orig=origin.getText();
+		dest=destination.getText();
+		
+		try
+		{
+			FXMLLoader fxmlLoader=new FXMLLoader(getClass().getResource("customersBookingDetails2_UI.fxml"));
+			Parent root_one = (Parent) fxmlLoader.load();
+			Stage stage = new Stage();
+			stage.setTitle("BOOK TICKET");
+			stage.setScene(new Scene(root_one));
+			stage.show();
+			
+	
+		}catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+	}
+	
+	@FXML
+	public void customerTicketBooked(ActionEvent Event)
+	{
+		LinkedList<Integer> seatNoBooked= new LinkedList<Integer>();
+		String Station = sloc.getText();
+		String SID=alphaobj.getStationID(Station);
+		int sid=Integer.parseInt(SID);
+		String Seats = numberOfSeats.getText();
+		int seats = Integer.parseInt(Seats);
+		String cnic=alphaobj.getCustomersCNIC(cusUserName,cusPassword);
+		seatNoBooked=alphaobj.bookTicket(orig, dest, seats, cnic);
+		try
+		{
+			
+			if(seatNoBooked==null)
+			{
+				seatNoBooked=alphaobj.bookTicket2(orig, dest, seats, cnic);
+				if(seatNoBooked!=null)
+				{
+					FXMLLoader fxmlLoader=new FXMLLoader(getClass().getResource("customersTicketBooked_UI.fxml"));
+					Parent root_one = (Parent) fxmlLoader.load();
+					Stage stage = new Stage();
+					stage.setTitle("TICKET BOOKED");
+					stage.setScene(new Scene(root_one));
+					stage.show();
+				}
+				else
+				{
+					FXMLLoader fxmlLoader=new FXMLLoader(getClass().getResource("customersTicketNotBooked_UI.fxml"));
+					Parent root_one = (Parent) fxmlLoader.load();
+					Stage stage = new Stage();
+					stage.setTitle("TICKET NOT BOOKED");
+					stage.setScene(new Scene(root_one));
+					stage.show();
+				}
+			}
+			
+			else
+			{
+				FXMLLoader fxmlLoader=new FXMLLoader(getClass().getResource("customersTicketBooked_UI.fxml"));
+				Parent root_one = (Parent) fxmlLoader.load();
+				Stage stage = new Stage();
+				stage.setTitle("TICKET BOOKED");
+				stage.setScene(new Scene(root_one));
+				stage.show();
+		
+			}
+	
+		}catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+	}
+	
+	
+	@FXML
+	public void customerViewStations(ActionEvent Event)
+	{
+		try
+		{
+			String s=alphaobj.getStations(orig);
+			Text text= new Text();
+			text.setX(50); 
+		    text.setY(50); 
+		    text.setScaleX(1);
+		    text.setScaleY(1);
+		    Group root = new Group(text);   
+			text.setText(s);
+			text.setFont(Font.font("Lato", FontPosture.ITALIC, 15));
+			Stage stage = new Stage();
+			stage.setTitle("Stations Near You");
 			stage.setScene(new Scene(root,800,800));
 			stage.show();
 			

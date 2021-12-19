@@ -212,14 +212,14 @@ public class systemUser {
 		return false;
 	}
 	
-	public boolean addStation(int ID,String name, String loc, String ssmcnic)
+	public boolean addStation(int ID,String name, String loc, String ssmcnic,String city)
 	{
-		station obj = new station(ID,name,loc,ssmcnic);
+		station obj = new station(ID,name,loc,ssmcnic,city);
 		
 		if(stationsList.size()<1)
 		{
 			stationsList.add(obj);
-			if(obj.add(ID, name, loc, ssmcnic))
+			if(obj.add(ID, name, loc, ssmcnic,city))
 				return true;
 		
 		}
@@ -228,7 +228,7 @@ public class systemUser {
 			if(stationsList.get(i).getID()==ID)
 			{
 				stationsList.add(obj);
-				stationsList.get(i).add(ID, name, loc, ssmcnic);
+				stationsList.get(i).add(ID, name, loc, ssmcnic,city);
 				return true;
 			}
 		}

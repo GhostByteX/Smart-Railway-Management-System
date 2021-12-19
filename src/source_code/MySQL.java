@@ -9,6 +9,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.util.LinkedList;
 
 public class MySQL extends PersHand {
 
@@ -270,7 +271,7 @@ public class MySQL extends PersHand {
 	}
 	
 	
-	public boolean addStation(int ID, String name, String loc, String ssmcnic)
+	public boolean addStation(int ID, String name, String loc, String ssmcnic,String city)
 	{
 		
 		
@@ -278,12 +279,13 @@ public class MySQL extends PersHand {
 			
 			Class.forName(DriverClass);
 			Connection con=DriverManager.getConnection(Path_DB, USERNAME_DB, PASSWORD_DB);
-			String sql="INSERT INTO station(Station_ID,Station_Name,Location,Station_Master_CNIC) VALUES(?,?,?,?)";
+			String sql="INSERT INTO station(Station_ID,Station_Name,Location,Station_Master_CNIC,City) VALUES(?,?,?,?,?)";
 			PreparedStatement statement=con.prepareStatement(sql);
 			statement.setInt(1, ID);
 			statement.setString(2,name);
 			statement.setString(3, loc);
 			statement.setString(4,ssmcnic);
+			statement.setString(5, city);
 			
 			int rowsInserted=statement.executeUpdate();
 			if(rowsInserted>0)
@@ -843,7 +845,7 @@ public class MySQL extends PersHand {
 			{
 				
 				
-				s+="     "+rs.getString(1)+"                             "+rs.getString(2)+"                                        "+rs.getString(3)+"                            "+rs.getString(4)+"                     "+rs.getString(5)+"                             "+rs.getString(6)+"                             "+rs.getString(7)+"                                  "+rs.getString(8)+" hrs                           $"+rs.getString(9)+"\n\n\n";
+				s+="     "+rs.getString(1)+"                             "+rs.getString(2)+"                                        "+rs.getString(3)+"                            "+rs.getString(4)+"                     "+rs.getString(5)+"                             "+rs.getString(6)+"                             "+rs.getString(7)+"                                  "+rs.getString(8)+" hrs                           "+rs.getString(9)+" RS-/"+"\n\n\n";
 			
 			
 			
@@ -880,7 +882,7 @@ public class MySQL extends PersHand {
 			
 			while(rs.next())
 			{
-				s+="     "+rs.getString(1)+"                             "+rs.getString(2)+"                                        "+rs.getString(3)+"                            "+rs.getString(4)+"                     "+rs.getString(5)+"                             "+rs.getString(6)+"                             "+rs.getString(7)+"                                  "+rs.getString(8)+" hrs                           $"+rs.getString(9);
+				s+="     "+rs.getString(1)+"                             "+rs.getString(2)+"                                        "+rs.getString(3)+"                            "+rs.getString(4)+"                     "+rs.getString(5)+"                             "+rs.getString(6)+"                             "+rs.getString(7)+"                                  "+rs.getString(8)+" hrs                           "+rs.getString(9)+" RS-/\n\n\n";
 				
 			
 			}
@@ -944,4 +946,332 @@ public class MySQL extends PersHand {
 		
 		return t;
 	}
+	
+	public String getStations(String city)
+	{
+		String a="";
+		
+		try
+		{
+			Class.forName(DriverClass);
+			Connection con=DriverManager.getConnection(Path_DB, USERNAME_DB, PASSWORD_DB);
+			String selectSql = "SELECT * FROM station where City='"+city+"'";
+			Statement statement = con.createStatement(ResultSet.TYPE_FORWARD_ONLY,
+					ResultSet.CONCUR_UPDATABLE);
+			ResultSet rs = statement.executeQuery(selectSql);
+			a+=" NAME                                                                                         LOCATION\n\n";
+			while (rs.next())
+			{
+				a+=rs.getString(2)+"                                                                "+rs.getString(3)+"'\n\n";
+			}
+			
+			return a;
+			
+		}
+		catch (ClassNotFoundException | SQLException e) {
+			// TODO Auto-generated catch block
+		e.printStackTrace();
+		}
+		
+		return a;
+	}
+	
+	public String getStationID(String stationName)
+	{
+		String a="";
+		
+		try
+		{
+			Class.forName(DriverClass);
+			Connection con=DriverManager.getConnection(Path_DB, USERNAME_DB, PASSWORD_DB);
+			String selectSql = "SELECT * from station";
+			Statement statement = con.createStatement(ResultSet.TYPE_FORWARD_ONLY,
+					ResultSet.CONCUR_UPDATABLE);
+			ResultSet rs = statement.executeQuery(selectSql);
+			
+			
+			while (rs.next())
+			{
+				String temp=rs.getString(2);
+				if(temp.equalsIgnoreCase(stationName))
+				{
+					a=rs.getString(1);
+					return a;
+				}
+			}
+			
+			
+			
+		}
+		catch (ClassNotFoundException | SQLException e) {
+			// TODO Auto-generated catch block
+		e.printStackTrace();
+		}
+		
+		return a;
+	}
+	
+	
+	public LinkedList<Integer> bookTicket(String orig,String dest,int seats,String cnic)
+	{
+		try
+		{
+			Class.forName(DriverClass);
+			Connection con=DriverManager.getConnection(Path_DB, USERNAME_DB, PASSWORD_DB);
+			String selectSql = "SELECT * from arrivals";
+			Statement statement = con.createStatement(ResultSet.TYPE_FORWARD_ONLY,
+					ResultSet.CONCUR_UPDATABLE);
+			ResultSet rs = statement.executeQuery(selectSql);
+			LinkedList<Integer>  sNo= new LinkedList<Integer>();
+			
+			while (rs.next())
+			{
+				String a="",b="";
+				a=rs.getString("Origin");
+				b=rs.getString("Destination");
+				if(a.equalsIgnoreCase(orig) && b.equalsIgnoreCase(dest))
+				{
+					if(updatePassengersListArrivals(rs.getString(1),cnic))
+					{
+						sNo=updateseatsAvailabilityArrivals(rs.getString(1),seats);
+						return sNo;
+						
+					}
+					
+				}
+			}
+			
+			
+		}
+		catch (ClassNotFoundException | SQLException e) {
+			// TODO Auto-generated catch block
+		e.printStackTrace();
+		}
+		return null;
+	}
+	
+	public LinkedList<Integer> bookTicket2(String orig,String dest,int seats,String cnic)
+	{
+		try
+		{
+			Class.forName(DriverClass);
+			Connection con=DriverManager.getConnection(Path_DB, USERNAME_DB, PASSWORD_DB);
+			String selectSql = "SELECT * from departures";
+			Statement statement = con.createStatement(ResultSet.TYPE_FORWARD_ONLY,
+					ResultSet.CONCUR_UPDATABLE);
+			ResultSet rs = statement.executeQuery(selectSql);
+			LinkedList<Integer>  sNo= new LinkedList<Integer>();
+			
+			while (rs.next())
+			{
+				String a="",b="";
+				a=rs.getString("Origin");
+				b=rs.getString("Destination");
+				if(a.equalsIgnoreCase(orig) && b.equalsIgnoreCase(dest))
+				{
+					if(updatePassengersListDepartures(rs.getString(1),cnic))
+					{
+						sNo=updateseatsAvailabilityDepartures(rs.getString(1),seats);
+						return sNo;
+						
+					}
+					
+				}
+			}
+			
+		}
+		catch (ClassNotFoundException | SQLException e) {
+			// TODO Auto-generated catch block
+		e.printStackTrace();
+		}
+		return null;
+	}
+	public boolean updatePassengersListArrivals(String JID,String CNIC)
+	{
+		try
+		{
+			Class.forName(DriverClass);
+			Connection con=DriverManager.getConnection(Path_DB, USERNAME_DB, PASSWORD_DB);
+			String sql="INSERT INTO passengersListArrivals(Journey_ID,CNIC) VALUES(?,?)";
+			PreparedStatement statement=con.prepareStatement(sql);
+			statement.setString(1,JID);
+			statement.setString(2,CNIC);
+			
+			int rowsInserted=statement.executeUpdate();
+			if(rowsInserted>0)
+			{
+				
+				return true;
+		
+			}
+		}
+		catch (ClassNotFoundException | SQLException e) {
+			// TODO Auto-generated catch block
+		e.printStackTrace();
+		}
+		
+		return false;
+		
+	}
+		
+	public boolean updatePassengersListDepartures(String JID,String CNIC)
+	{
+		try
+		{
+			Class.forName(DriverClass);
+			Connection con=DriverManager.getConnection(Path_DB, USERNAME_DB, PASSWORD_DB);
+			String sql="INSERT INTO passengersListDepartures(Journey_ID,CNIC) VALUES(?,?)";
+			PreparedStatement statement=con.prepareStatement(sql);
+			statement.setString(1,JID);
+			statement.setString(2,CNIC);
+			
+			int rowsInserted=statement.executeUpdate();
+			if(rowsInserted>0)
+			{
+				
+				return true;
+		
+			}
+		}
+		catch (ClassNotFoundException | SQLException e) {
+			// TODO Auto-generated catch block
+		e.printStackTrace();
+		}
+		
+		return false;
+		
+	}
+		
+	
+	public LinkedList<Integer> updateseatsAvailabilityArrivals(String JID,int seats)
+	{
+		
+		LinkedList<Integer> seatNumbers = new LinkedList<Integer>();
+		
+		try
+		{
+			Class.forName(DriverClass);
+			Connection con=DriverManager.getConnection(Path_DB, USERNAME_DB, PASSWORD_DB);
+			String selectSql = "SELECT * FROM seatsavailabilityarrivals ORDER BY 2";
+			Statement statement = con.createStatement(ResultSet.TYPE_FORWARD_ONLY,
+					ResultSet.CONCUR_UPDATABLE);
+			ResultSet rs = statement.executeQuery(selectSql);
+			
+			while(rs.next())
+			{
+				String temp=rs.getString(1);
+				String status=rs.getString(3);
+				int seatNo=rs.getInt(2);
+				
+				if(temp.equalsIgnoreCase(JID)&& status.equalsIgnoreCase("Available"))
+				{
+					if(seats>0)
+					{
+						String newstatus="Booked";
+						rs.updateString(3,newstatus);
+						rs.updateRow();
+						seats--;
+						seatNumbers.add(seatNo);
+					}
+				}
+					
+				
+			}
+			System.out.print("AAAA"+seatNumbers);
+			return seatNumbers;
+			
+			
+		}
+		catch (ClassNotFoundException | SQLException e) {
+			// TODO Auto-generated catch block
+		e.printStackTrace();
+		}
+		
+		return seatNumbers;
+		
+		
+	}
+	
+	public LinkedList<Integer> updateseatsAvailabilityDepartures(String JID,int seats)
+	{
+		
+		LinkedList<Integer> seatNumbers = new LinkedList<Integer>();
+		
+		try
+		{
+			Class.forName(DriverClass);
+			Connection con=DriverManager.getConnection(Path_DB, USERNAME_DB, PASSWORD_DB);
+			String selectSql = "SELECT * FROM seatsavailabilitydepartures ORDER BY 2";
+			Statement statement = con.createStatement(ResultSet.TYPE_FORWARD_ONLY,
+					ResultSet.CONCUR_UPDATABLE);
+			ResultSet rs = statement.executeQuery(selectSql);
+			
+			while(rs.next() && seats>0)
+			{
+				String temp=rs.getString(1);
+				String status=rs.getString(3);
+				int seatNo=rs.getInt(2);
+				
+				if(temp.equalsIgnoreCase(JID)&& status.equalsIgnoreCase("Available"))
+				{
+					String newstatus="Booked";
+					rs.updateString(3,newstatus);
+					rs.updateRow();
+					seats--;
+					seatNumbers.add(seatNo);
+				}
+					
+				
+			}
+			return seatNumbers;
+			
+			
+		}
+		catch (ClassNotFoundException | SQLException e) {
+			// TODO Auto-generated catch block
+		e.printStackTrace();
+		}
+		
+		return seatNumbers;
+		
+	}
+	
+	
+	public String returnCustomerCNIC(String username, String password)
+	{
+		try {
+			
+			Class.forName(DriverClass);
+			Connection con=DriverManager.getConnection(Path_DB, USERNAME_DB, PASSWORD_DB);
+			Statement stmt=con.createStatement();
+			ResultSet rs=stmt.executeQuery("select username,password,cnic from customers");
+			
+			String userName="";
+			String passWord="";
+			String cnic="";
+			while(rs.next())
+			{
+				userName=rs.getString(1);
+				passWord=rs.getString(2);
+				cnic=rs.getString(3);
+				if(username.equals(userName) && password.equals(passWord))
+				{
+					return cnic;
+				}
+			}
+			
+			
+			
+			
+	
+		}
+	
+	catch (ClassNotFoundException | SQLException e) {
+		// TODO Auto-generated catch block
+	e.printStackTrace();
+	}	
+	
+	return "";
+	}
+	
 }

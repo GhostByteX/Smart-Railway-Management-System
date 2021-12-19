@@ -6,6 +6,7 @@ public class station {
 	private String name_ST;
 	private String location_ST;
 	private String stationMasterCNIC;
+	private String city_ST;
 	PersHand obj= new MySQL();
 	
 	station()
@@ -14,14 +15,16 @@ public class station {
 		this.name_ST="";
 		this.location_ST="";
 		this.stationMasterCNIC="";
+		this.city_ST="";
 	}
 	
-	station(int id, String name, String location,String SM)
+	station(int id, String name, String location,String SM,String city)
 	{
 		this.id_ST=id;
 		this.name_ST=name;
 		this.location_ST=location;
 		this.stationMasterCNIC=SM;
+		this.city_ST=city;
 	}
 	
 	
@@ -42,6 +45,11 @@ public class station {
 		this.location_ST=location;
 	}
 	
+	public void setCity(String city)
+	{
+		this.city_ST=city;
+	}
+	
 	
 	//	GETTERS
 	
@@ -60,15 +68,20 @@ public class station {
 		return this.location_ST;
 	}
 	
+	public String getCity()
+	{
+		return this.city_ST;
+	}
+	
 	
 	//	FUNCTIONALITY
 	
 	
-	public boolean add(int ID, String name, String location,String SM)
+	public boolean add(int ID, String name, String location,String SM,String city)
 	{
 		//DB CALL TO ADD A STATION
 		
-		if(obj.addStation(ID, name, location, SM))
+		if(obj.addStation(ID, name, location, SM,city))
 			return true;
 		return false;
 	}

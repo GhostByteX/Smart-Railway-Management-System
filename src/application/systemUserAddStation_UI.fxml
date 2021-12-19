@@ -39,11 +39,17 @@
                </font>
             </Button>
             <TextField fx:id="ssmcnic" layoutX="324.0" layoutY="475.0" prefHeight="40.0" prefWidth="300.0" />
-            <Button layoutX="283.0" layoutY="631.0" mnemonicParsing="false" onAction="#systemUserAddedStation" prefHeight="53.0" prefWidth="234.0" style="-fx-background-color: maroon;" text="Submit" textAlignment="CENTER" textFill="WHITE" wrapText="true">
+            <Button layoutX="283.0" layoutY="675.0" mnemonicParsing="false" onAction="#systemUserAddedStation" prefHeight="53.0" prefWidth="234.0" style="-fx-background-color: maroon;" text="Submit" textAlignment="CENTER" textFill="WHITE" wrapText="true">
                <font>
                   <Font name="Century Gothic Bold" size="24.0" />
                </font>
             </Button>
+            <Button layoutX="61.0" layoutY="575.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="200.0" style="-fx-background-color: white;" text="City" textAlignment="CENTER" wrapText="true">
+               <font>
+                  <Font name="Century Gothic Bold" size="18.0" />
+               </font>
+            </Button>
+            <TextField fx:id="sscity" layoutX="324.0" layoutY="575.0" prefHeight="40.0" prefWidth="300.0" />
          </children>
       </Pane>
    </children>
