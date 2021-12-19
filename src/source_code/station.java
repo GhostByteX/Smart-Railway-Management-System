@@ -7,7 +7,7 @@ public class station {
 	private String location_ST;
 	private String stationMasterCNIC;
 	private String city_ST;
-	PersHand obj= new MySQL();
+	Storage obj = new Storage();
 	
 	station()
 	{

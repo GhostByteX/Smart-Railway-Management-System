@@ -3,7 +3,7 @@ package source_code;
 public class arrivals extends journey {
 	
 	
-	PersHand obj = new MySQL();
+	Storage obj = new Storage();
 	arrivals()
 	{
 		

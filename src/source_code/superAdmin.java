@@ -13,7 +13,7 @@ public class superAdmin {
 	private String username_SA;
 	private String password_SA;
 	private LinkedList<systemUser> systemUsers_SA;
-	PersHand obj = new MySQL();
+	Storage obj = new Storage();
 	systemUser SUobj = new systemUser();
 	
 	superAdmin()

@@ -10,7 +10,7 @@ public class timetable {
 	private LocalDate dateOfTimeTable;
 	private LinkedList<journey> arrivals;
 	private LinkedList<journey> departures;
-	PersHand obj = new MySQL();
+	Storage obj = new Storage();
 	timetable(String jID, int tnum, String tname, String origin, String dest, int status, int totalSeats, int duration, float fare)
 	{
 		this.timeTableID=0;

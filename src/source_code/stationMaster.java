@@ -15,7 +15,7 @@ public class stationMaster {
 	private String username_SM;
 	private String password_SM;
 	private LinkedList<timetable> trainSchedule;
-	PersHand obj = new MySQL();
+	Storage obj = new Storage();
 	stationMaster()
 	{
 		this.CNIC_SM="";

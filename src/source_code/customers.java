@@ -10,8 +10,7 @@ public class customers {
 	private long phoneNumber_CUS;
 	private String username_CUS;
 	private String password_CUS;
-	PersHand obj = new MySQL();
-	
+	Storage obj = new Storage();
 	public customers()
 	{
 		this.CNIC_CUS="";

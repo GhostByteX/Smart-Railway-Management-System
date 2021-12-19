@@ -14,7 +14,7 @@ public class systemUser {
 	private String password_SU;
 	private LinkedList<station> stationsList;
 	private LinkedList<stationMaster> stationMastersList;
-	PersHand obj = new MySQL();
+	Storage obj = new Storage();
 	
 	systemUser()
 	{

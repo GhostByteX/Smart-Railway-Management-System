@@ -4,12 +4,12 @@ import java.sql.Date;
 import java.time.LocalDate;
 import java.util.LinkedList;
 
-public class alphaSystem {
+public class SmartRailwayManagementSystem {
 
 	private superAdmin SA_USER;
 	private customers CUS_USER;
 	
-	public alphaSystem()
+	public SmartRailwayManagementSystem()
 	{
 	
 	}
@@ -255,33 +255,33 @@ public class alphaSystem {
 	
 	public String getArrivals()
 	{
-		PersHand obj = new MySQL();
+		Storage obj = new Storage();
 		return obj.getArrivals();
 		
 	}
 	
 	public String getDepartures()
 	{
-		PersHand obj = new MySQL();
+		Storage obj = new Storage();
 		return obj.getDepartures();
 		
 	}
 	
 	public String getStations(String location)
 	{
-		PersHand obj = new MySQL();
+		Storage obj = new Storage();
 		return obj.getStations(location);
 	}
 	
 	public String getStationID(String stationName)
 	{
-		PersHand obj = new MySQL();
+		Storage obj = new Storage();
 		return obj.getStationID(stationName);
 	}
 	
 	public LinkedList<Integer> bookTicket(String orig,String dest,int noOfSeats,String cnic)
 	{
-		PersHand obj = new MySQL();
+		Storage obj = new Storage();
 		LinkedList<Integer> sNo= new LinkedList<Integer>();
 		sNo=obj.bookTicket(orig, dest, noOfSeats, cnic);
 		return sNo;
@@ -289,22 +289,24 @@ public class alphaSystem {
 	
 	public String getCustomersCNIC(String username,String password)
 	{
-		PersHand obj = new MySQL();
+		Storage obj = new Storage();
 		return obj.returnCustomerCNIC(username, password);
 		
 	}
 
 	public LinkedList<Integer> bookTicket2(String orig, String dest, int noOfSeats, String cnic) 
 	{
-		PersHand obj = new MySQL();
+		Storage obj = new Storage();
 		LinkedList<Integer> sNo= new LinkedList<Integer>();
 		sNo=obj.bookTicket2(orig, dest, noOfSeats, cnic);
 		return sNo;
 	}
 
 	public String getStationMasters() {
-		PersHand obj = new MySQL();
+		Storage obj = new Storage();
 		return obj.getStationMaster();
 	}
+	
+	
 }
 
