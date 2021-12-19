@@ -37,6 +37,7 @@ public abstract class PersHand {
 	public abstract LinkedList<Integer> bookTicket(String orig,String dest,int seats,String cnic);
 	public abstract String returnCustomerCNIC(String username, String password);
 	public abstract LinkedList<Integer> bookTicket2(String orig, String dest, int noOfSeats, String cnic);
+	public abstract String getStationMaster();
 	
 }
 

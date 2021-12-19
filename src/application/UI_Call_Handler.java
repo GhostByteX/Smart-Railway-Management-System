@@ -1477,4 +1477,30 @@ public class UI_Call_Handler {
 			e.printStackTrace();
 		}
 	}
+	
+	@FXML
+	public void viewStationMasters(ActionEvent Event)
+	{
+		try
+		{
+			String s=alphaobj.getStationMasters();
+			Text text= new Text();
+			text.setX(50); 
+		    text.setY(50); 
+		    text.setScaleX(1);
+		    text.setScaleY(1);
+		    Group root = new Group(text);   
+			text.setText(s);
+			text.setFont(Font.font("Lato", FontPosture.ITALIC, 15));
+			Stage stage = new Stage();
+			stage.setTitle("Station Masters");
+			stage.setScene(new Scene(root,800,800));
+			stage.show();
+			
+	
+		}catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+	}
 }

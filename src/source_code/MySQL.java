@@ -1274,4 +1274,33 @@ public class MySQL extends PersHand {
 	return "";
 	}
 	
+	public String getStationMaster()
+	{
+		try {
+			
+			Class.forName(DriverClass);
+			Connection con=DriverManager.getConnection(Path_DB, USERNAME_DB, PASSWORD_DB);
+			Statement stmt=con.createStatement();
+			ResultSet rs=stmt.executeQuery("select cnic,name,address from stationmaster");
+			String a="CNIC                                                           NAME                                                   ADDRESS\n\n";
+			
+			while(rs.next())
+			{
+				a+=rs.getString(1)+"                                     "+rs.getString(2)+"                                     "+rs.getString(3)+"\n\n";
+			}
+			
+			return a;
+			
+			
+	
+		}
+	
+	catch (ClassNotFoundException | SQLException e) {
+		// TODO Auto-generated catch block
+	e.printStackTrace();
+	}	
+	
+	return "";
+	}
+	
 }

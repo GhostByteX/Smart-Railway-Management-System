@@ -301,5 +301,10 @@ public class alphaSystem {
 		sNo=obj.bookTicket2(orig, dest, noOfSeats, cnic);
 		return sNo;
 	}
+
+	public String getStationMasters() {
+		PersHand obj = new MySQL();
+		return obj.getStationMaster();
+	}
 }
 
