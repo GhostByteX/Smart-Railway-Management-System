@@ -11,7 +11,8 @@ public class timetable {
 	private LinkedList<journey> arrivals;
 	private LinkedList<journey> departures;
 	Storage obj = new Storage();
-	timetable(String jID, int tnum, String tname, String origin, String dest, int status, int totalSeats, int duration, float fare)
+	
+	public timetable(String jID, int tnum, String tname, String origin, String dest, int status, int totalSeats, int duration, float fare)
 	{
 		this.timeTableID=0;
 		this.dateOfTimeTable=null;
@@ -19,7 +20,7 @@ public class timetable {
 		this.departures = new LinkedList<journey>();
 	}
 	
-	timetable(int ID, LocalDate dateTT)
+	public timetable(int ID, LocalDate dateTT)
 	{
 		this.timeTableID=ID;
 		this.dateOfTimeTable=dateTT;
@@ -31,7 +32,10 @@ public class timetable {
 	//	SETTERS
 	
 	public timetable() {
-		
+		this.timeTableID=0;
+		this.dateOfTimeTable=null;
+		this.arrivals = new LinkedList<journey>();
+		this.departures = new LinkedList<journey>();
 	}
 
 	public void setTimeTableID(int ID)

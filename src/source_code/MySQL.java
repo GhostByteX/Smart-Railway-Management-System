@@ -444,7 +444,8 @@ public class MySQL extends PersHand {
 		
 			}
 		
-		catch (ClassNotFoundException | SQLException e) {
+		catch (ClassNotFoundException | NullPointerException | SQLException e) {
+			
 				// TODO Auto-generated catch block
 			e.printStackTrace();
 		}

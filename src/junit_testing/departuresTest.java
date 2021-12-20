@@ -9,14 +9,14 @@ import org.junit.Test;
 
 import source_code.MySQL;
 import source_code.PersHand;
-import source_code.arrivals;
+import source_code.departures;
 
-public class arrivalsTest {
+public class departuresTest {
 
 	@Test 
 	public void testAddPos() {
 		
-		arrivals obj = new arrivals();
+		departures obj = new departures();
 		boolean flag=obj.add(0001, "AA124", 2, "ABC", "Lahore", "Islamabad", 1, 3, 2, 2);
 		assertEquals(flag,true);
 		
@@ -36,8 +36,8 @@ public class arrivalsTest {
 	@Test
 	public void testUpdatePos() {
 		
-		arrivals obj = new arrivals();
-		boolean flag=obj.update("AA124", 1);
+		departures obj = new departures();
+		boolean flag=obj.update("AA124", 0);
 		assertEquals(flag,true);
 		
 	}

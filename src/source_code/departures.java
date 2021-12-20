@@ -3,13 +3,13 @@ package source_code;
 public class departures extends journey {
 	
 	Storage obj = new Storage();
-	departures()
+	public departures()
 	{
 		
 	}
 	
 	
-	departures(String ID, int tnum, String tname, String orig, String dest, int status, int totalSeats,int dur, float fare)
+	public departures(String ID, int tnum, String tname, String orig, String dest, int status, int totalSeats,int dur, float fare)
 	{
 		this.setjID(ID);
 		this.setTrainNumber(tnum);

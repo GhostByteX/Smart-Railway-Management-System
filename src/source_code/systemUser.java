@@ -16,7 +16,7 @@ public class systemUser {
 	private LinkedList<stationMaster> stationMastersList;
 	Storage obj = new Storage();
 	
-	systemUser()
+	public systemUser()
 	{
 		this.CNIC_SU="";
 		this.name_SU="";
@@ -30,7 +30,7 @@ public class systemUser {
 		stationMastersList = new LinkedList<stationMaster>();
 	}
 	
-	systemUser(String cnic, String name, int age, String email, String address, long phoneNum, String username, String password)
+	public systemUser(String cnic, String name, int age, String email, String address, long phoneNum, String username, String password)
 	{
 		this.CNIC_SU=cnic;
 		this.name_SU=name;
@@ -242,7 +242,9 @@ public class systemUser {
 		station obj=new station();
 		
 		if(obj.delete(ID))
+		{
 			return true;
+		}
 		
 		return false;
 	}

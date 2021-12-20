@@ -16,7 +16,7 @@ public class superAdmin {
 	Storage obj = new Storage();
 	systemUser SUobj = new systemUser();
 	
-	superAdmin()
+	public superAdmin()
 	{
 		this.CNIC_SA="";
 		this.name_SA="";
@@ -198,10 +198,7 @@ public class superAdmin {
 		
 	}
 	
-	public boolean manageFare(int fare)
-	{
-		return true;
-	}
+	
 	
 	
 }

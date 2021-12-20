@@ -4,13 +4,13 @@ public class arrivals extends journey {
 	
 	
 	Storage obj = new Storage();
-	arrivals()
+	public arrivals()
 	{
 		
 	}
 	
 	
-	arrivals(String ID, int tnum, String tname, String orig, String dest, int status, int totalSeats,int dur, float fare)
+	public arrivals(String ID, int tnum, String tname, String orig, String dest, int status, int totalSeats,int dur, float fare)
 	{
 		this.setjID(ID);
 		this.setTrainNumber(tnum);

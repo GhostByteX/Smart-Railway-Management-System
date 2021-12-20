@@ -16,7 +16,8 @@ public class stationMaster {
 	private String password_SM;
 	private LinkedList<timetable> trainSchedule;
 	Storage obj = new Storage();
-	stationMaster()
+	
+	public stationMaster()
 	{
 		this.CNIC_SM="";
 		this.name_SM="";
@@ -29,7 +30,7 @@ public class stationMaster {
 		this.trainSchedule = new LinkedList<timetable>();
 	}
 	
-	stationMaster(String cnic,String name, int age, String email, String address, long pNum, String username, String password)
+	public stationMaster(String cnic,String name, int age, String email, String address, long pNum, String username, String password)
 	{
 		this.CNIC_SM=cnic;
 		this.name_SM=name;

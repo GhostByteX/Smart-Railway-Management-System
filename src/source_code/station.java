@@ -9,7 +9,7 @@ public class station {
 	private String city_ST;
 	Storage obj = new Storage();
 	
-	station()
+	public station()
 	{
 		this.id_ST=0;
 		this.name_ST="";
@@ -18,7 +18,7 @@ public class station {
 		this.city_ST="";
 	}
 	
-	station(int id, String name, String location,String SM,String city)
+	public station(int id, String name, String location,String SM,String city)
 	{
 		this.id_ST=id;
 		this.name_ST=name;
